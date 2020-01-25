@@ -44,7 +44,7 @@ jobs:
           rm -rf ./release/*.zip
           rm -rf ./release/*-unpacked
           rm -rf ./release/mac
-          export NAME=$(ls release/cirqwallet*)
+          export NAME=$(ls release/CirqWallet*)
           echo ::set-output name=file_name::${NAME:8}
 
       - name: Store Build Artifact
