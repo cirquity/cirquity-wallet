@@ -46,8 +46,8 @@
   },
   "main": "./app/main.prod.js",
   "build": {
-    "productName": "proton-wallet",
-    "appId": "wallet.proton.extra",
+    "productName": "cirqwallet",
+    "appId": "wallet.cirq.extra",
     "files": [
       "app/dist/",
       "app/mainWindow/app.html",
@@ -94,30 +94,31 @@
     "publish": {
       "provider": "github",
       "owner": "Deeterd",
-      "repo": "cirquity-wallet-proton",
+      "repo": "cirquity-wallet",
       "private": false
     }
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cirquity/cirquity-wallet-proton.git"
+    "url": "git+https://github.com/cirquity/cirquity-wallet.git"
   },
   "author": {
     "name": "Deeterd",
     "email": "deeterd@pm.me",
-    "url": "https://github.com/cirquity/cirquity-wallet-proton/releases/latest"
+    "url": "https://github.com/cirquity/cirquity-wallet/releases/latest"
   },
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/cirquity/cirquity-wallet-proton/issues"
+    "url": "https://github.com/cirquity/cirquity-wallet/issues"
   },
   "keywords": [
-    "turtlecoin",
+    "cirquity",
     "gui wallet",
     "electron",
-    "proton"
+    "cirq",
+    "cirqwallet"
   ],
-  "homepage": "https://github.com/cirquity/cirquity-wallet-proton#readme",
+  "homepage": "https://github.com/cirquity/cirquity-wallet#readme",
   "jest": {
     "testURL": "http://localhost/",
     "moduleNameMapper": {
