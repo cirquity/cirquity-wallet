@@ -46,7 +46,7 @@
   },
   "main": "./app/main.prod.js",
   "build": {
-    "productName": "cirqwallet",
+    "productName": "CirqWallet",
     "appId": "wallet.cirq.extra",
     "files": [
       "app/dist/",
