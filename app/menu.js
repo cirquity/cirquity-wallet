@@ -55,7 +55,7 @@ export default class MenuBuilder {
           label: `${il8n.about} ${productName}`,
           click: () => {
             shell.openExternal(
-              'http://github.com/cirquity/cirquity-wallet-proton#readme'
+              'http://github.com/cirquity/cirquity-wallet#readme'
             );
           }
         },
@@ -241,14 +241,14 @@ export default class MenuBuilder {
         {
           label: il8n.support,
           click() {
-            shell.openExternal('https://discord.gg/P7urHQs');
+            shell.openExternal('https://chat.cirquity.com');
           }
         },
         {
           label: il8n.report_bug,
           click() {
             shell.openExternal(
-              'https://github.com/cirquity/cirquity-wallet-proton/issues'
+              'https://github.com/cirquity/cirquity-wallet/issues'
             );
           }
         },
@@ -256,7 +256,7 @@ export default class MenuBuilder {
           label: il8n.feature_request,
           click() {
             shell.openExternal(
-              'https://github.com/cirquity/cirquity-wallet-proton/issues'
+              'https://github.com/cirquity/cirquity-wallet/issues'
             );
           }
         }
@@ -266,7 +266,10 @@ export default class MenuBuilder {
       label: 'Donate',
       submenu: [
         {
-          label: `Donate to the Developers`
+          label: `Donate to the Developers`,
+          click: () => {
+            this.handleDonate();
+          }
         }
       ]
     };
@@ -461,14 +464,14 @@ export default class MenuBuilder {
           {
             label: il8n.support,
             click: () => {
-              shell.openExternal('https://discord.gg/P7urHQs');
+              shell.openExternal('https://chat.cirquity.com');
             }
           },
           {
             label: il8n.about,
             click: () => {
               shell.openExternal(
-                'http://github.com/cirquity/cirquity-wallet-proton#readme'
+                'https://github.com/cirquity/cirquity-wallet#readme'
               );
             }
           },
@@ -476,7 +479,7 @@ export default class MenuBuilder {
             label: il8n.report_bug,
             click: () => {
               shell.openExternal(
-                'https://github.com/cirquity/cirquity-wallet-proton/issues'
+                'https://github.com/cirquity/cirquity-wallet/issues'
               );
             }
           },
@@ -484,7 +487,7 @@ export default class MenuBuilder {
             label: il8n.feature_request,
             click: () => {
               shell.openExternal(
-                'https://github.com/cirquity/cirquity-wallet-proton/issues'
+                'https://github.com/cirquity/cirquity-wallet/issues'
               );
             }
           }
@@ -497,6 +500,7 @@ export default class MenuBuilder {
             label: 'Donate to the Developers',
             click: () => {
               try {
+                console.log('handleDonate');
                 this.handleDonate();
               } catch (err) {
                 log.error(err);
