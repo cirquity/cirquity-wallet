@@ -1,7 +1,7 @@
 {
   "name": "cirqwallet",
   "productName": "CirqWallet",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Cirquity wallet based on React, React Router, Webpack, and React Hot Loader",
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
@@ -47,7 +47,7 @@
   "main": "./app/main.prod.js",
   "build": {
     "productName": "CirqWallet",
-    "appId": "wallet.cirq.extra",
+    "appId": "wallet.cirq.deeterd",
     "files": [
       "app/dist/",
       "app/mainWindow/app.html",
