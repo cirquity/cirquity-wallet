@@ -11,6 +11,7 @@ import log from 'electron-log';
 import { ipcRenderer } from 'electron';
 import { createObjectCsvWriter } from 'csv-writer';
 import { atomicToHuman, convertTimestamp } from '../mainWindow/utils/utils';
+import walletBackendConfig from '../mainWindow/constants/walletBackend';
 
 export default class Backend {
   notifications: boolean;
@@ -28,6 +29,8 @@ export default class Backend {
   wallet: any;
 
   walletActive: boolean = false;
+
+  wbConfig: any;
 
   lastTxAmountRequested: number = 50;
 
@@ -47,7 +50,12 @@ export default class Backend {
     this.daemonPort = config.daemonPort;
     this.walletFile = config.walletFile;
     this.logLevel = config.logLevel;
-    this.daemon = new Daemon(this.daemonHost, this.daemonPort);
+    this.daemon = new Daemon(this.daemonHost, this.daemonPort, false);
+    this.wbConfig = walletBackendConfig;
+
+    if (config.scanCoinbaseTransactions) {
+      this.wbConfig.scanCoinbaseTransactions = config.scanCoinbaseTransactions;
+    }
   }
 
   setNotifications(status: boolean) {
@@ -138,6 +146,7 @@ export default class Backend {
   }
 
   setScanCoinbaseTransactions(value: boolean) {
+    this.wbConfig.scanCoinbaseTransactions = value;
     this.wallet.scanCoinbaseTransactions(value);
   }
 
@@ -364,7 +373,7 @@ export default class Backend {
 
   async changeNode(nodeInfo: any): void {
     const { host, port } = nodeInfo;
-    this.setDaemon(new Daemon(host, port));
+    this.setDaemon(new Daemon(host, port, false));
     await this.wallet.swapNode(this.daemon);
     this.getConnectionInfo();
     this.getNodeFee();
@@ -473,7 +482,8 @@ export default class Backend {
     const [openWallet, error] = WalletBackend.openWalletFromFile(
       this.daemon,
       this.walletFile,
-      this.walletPassword
+      this.walletPassword,
+      this.wbConfig
     );
     if (!error) {
       this.walletInit(openWallet);

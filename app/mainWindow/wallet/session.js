@@ -31,7 +31,7 @@ export default class WalletSession {
   transactionCount: number = 0;
 
   daemonConnectionInfo: DaemonConnection = {
-    daemonType: 1,
+    daemonType: 0,
     daemonTypeDetermined: true,
     host: 'api-block.cirquity.com',
     port: 443,
