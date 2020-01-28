@@ -113,7 +113,7 @@ export default class Home extends Component<Props, State> {
     remote.shell.openExternal(
       `https://explorer.cirquity.com/?hash=${encodeURIComponent(
         hash
-      )}#blockchain_block`
+      )}#blockchain_transaction`
     );
   };
 

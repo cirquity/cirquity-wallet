@@ -160,7 +160,7 @@ export default class Search extends Component<Props, States> {
     remote.shell.openExternal(
       `https://explorer.cirquity.com/?hash=${encodeURIComponent(
         query
-      )}#blockchain_block`
+      )}#blockchain_transaction`
     );
   };
 
@@ -170,7 +170,7 @@ export default class Search extends Component<Props, States> {
     remote.shell.openExternal(
       `https://explorer.cirquity.com/?hash=${encodeURIComponent(
         hash
-      )}#blockchain_block`
+      )}#blockchain_transaction`
     );
   };
 

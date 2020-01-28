@@ -186,7 +186,7 @@ contextMenu({
         shell.openExternal(
           `https://explorer.cirquity.com/?hash=${encodeURIComponent(
             params.selectionText
-          )}#blockchain_block`
+          )}#blockchain_transaction`
         );
       }
     },
