@@ -111,9 +111,9 @@ export default class Home extends Component<Props, State> {
     const hash = event.target.value;
 
     remote.shell.openExternal(
-      `https://explorer.cirquity.com/?hash=${encodeURIComponent(
+      `https://explorer.cirquity.com/transaction.html?hash=${encodeURIComponent(
         hash
-      )}#blockchain_transaction`
+      )}`
     );
   };
 

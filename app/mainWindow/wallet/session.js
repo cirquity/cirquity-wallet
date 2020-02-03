@@ -3,7 +3,7 @@
 // Please see the included LICENSE file for more information.
 import request from 'request-promise';
 import log from 'electron-log';
-import { DaemonConnection } from 'turtlecoin-wallet-backend';
+import { Daemon, DaemonConnection } from 'turtlecoin-wallet-backend';
 import { config, eventEmitter } from '../index';
 import { roundToNearestHundredth } from '../utils/utils';
 
@@ -30,6 +30,8 @@ export default class WalletSession {
 
   transactionCount: number = 0;
 
+  daemon: Daemon;
+
   daemonConnectionInfo: DaemonConnection = {
     daemonType: 0,
     daemonTypeDetermined: true,
@@ -46,6 +48,7 @@ export default class WalletSession {
     this.firstLoadOnLogin = true;
     this.selectedFiat = config.selectedFiat;
     this.fiatPrice = 0;
+    this.daemon = new Daemon('api-block.cirquity.com', 443, false);
     this.getFiatPrice(this.selectedFiat);
   }
 
@@ -63,7 +66,6 @@ export default class WalletSession {
 
   setDaemonConnectionInfo(daemonConnectionInfo: DaemonConnection): void {
     this.daemonConnectionInfo = daemonConnectionInfo;
-    log.info(this.daemonConnectionInfo);
     eventEmitter.emit('gotDaemonConnectionInfo');
   }
 
