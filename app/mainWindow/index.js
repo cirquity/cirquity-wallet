@@ -63,7 +63,7 @@ updater.getLatestVersion();
 
 export let loginCounter = new LoginCounter();
 
-remote.app.setAppUserModelId('wallet.cirqwallet.deeterd');
+remote.app.setAppUserModelId('wallet.cirq.deeterd');
 
 log.debug(`CirqWallet started...`);
 
