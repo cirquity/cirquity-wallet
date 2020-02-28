@@ -431,7 +431,7 @@ eventEmitter.on('handleOpen', handleOpen);
 
 function handleAbout() {
   remote.shell.openExternal(
-    'http://github.com/cirquity/cirquity-wallet-proton#readme'
+    'https://github.com/cirquity/cirquity-wallet#readme'
   );
 }
 
@@ -441,7 +441,7 @@ function handleHelp() {
 
 function handleIssues() {
   remote.shell.openExternal(
-    'https://github.com/cirquity/cirquity-wallet-proton/issues'
+    'https://github.com/cirquity/cirquity-wallet/issues'
   );
 }
 
