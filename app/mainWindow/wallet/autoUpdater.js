@@ -18,7 +18,7 @@ export default class AutoUpdater {
       log.debug('Checking for updates...');
       const options = {
         method: 'GET',
-        url: `https://github.com/cirquity/cirquity-wallet-proton/releases/latest/${operatingSystem}/${currentVersion}/${arch}`,
+        url: `https://github.com/cirquity/cirquity-wallet/releases/latest/${operatingSystem}/${currentVersion}/${arch}`,
         json: true
       };
       request(options, (error, response, body) => {
