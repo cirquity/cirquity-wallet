@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2019 ExtraHash
+ * Copyright (C) 2020 Deeterd
  *
  * Please see the included LICENSE file for more information.
  *
@@ -610,7 +611,9 @@
 .table-darkmode.is-hoverable.is-striped tbody tr:not(.is-selected):hover {
   background-color: #474747;
 }
-.table-darkmode.is-hoverable.is-striped tbody tr:not(.is-selected):not(.no-hover):hover:nth-child(even) {
+.table-darkmode.is-hoverable.is-striped
+  tbody
+  tr:not(.is-selected):not(.no-hover):hover:nth-child(even) {
   background-color: #353535;
 }
 

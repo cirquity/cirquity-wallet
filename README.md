@@ -13,11 +13,11 @@
 
 ![Development Build Status](https://github.com/cirquity/cirquity-wallet/workflows/Build/badge.svg?branch=development)
 
-
 Cirq Wallet is a Cirquity wallet that uses
+
 - [Electron](http://electron.atom.io/)
 - [React](https://facebook.github.io/react/)
-- [Turtlecoin-Wallet-Backend-JS](https://github.com/turtlecoin/turtlecoin-wallet-backend-js)
+- [Cirquity-Wallet-Backend-JS](https://github.com/cirquity/cirquity-wallet-backend-js)
 - [Redux](https://github.com/reactjs/redux)
 - [React Router](https://github.com/reactjs/react-router)
 - [Webpack](http://webpack.github.io/docs/)
@@ -78,7 +78,6 @@ $ yarn package
 
 ## License
 
-© [ExtraHash](https://github.com/ExtraHash)<br />
-© [Deeterd](https://github.com/deeterd)<br />
+© [ExtraHash](https://github.com/ExtraHash)  
+© [Deeterd](https://github.com/deeterd)  
 See included License file for more details.
-

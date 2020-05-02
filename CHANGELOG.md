@@ -43,7 +43,7 @@ Thanks TurtleCoin community, and please enjoy the new version!
 
 - introduces a non-blocking in-window 'modal' component which replaces all native (thread blocking) dialogs
 - adds a local daemon mode which can be enabled in settings (you must provide a path to turtlecoind)
-- upgrades turtlecoin-wallet-backend for some transaction bugfixes
+- upgrades cirquity-wallet-backend for some transaction bugfixes
 - adds some additional dev-only testing actions
 - pulls in source code pro for monospace font on all OS
 
@@ -94,7 +94,7 @@ This is a pretty big release, cleaning up the codebase and making it look much n
 ## v0.0.23
 
 - finishes rewind feature (before you could only press the button to rewind ~day, i forgot to finish the user input height)
-- bumps turtlecoin-wallet-backend version
+- bumps cirquity-wallet-backend version
 - fixes AppImage system icon not working
 - now closes to system tray instead of closing completely on X
 
@@ -103,7 +103,7 @@ This is a pretty big release, cleaning up the codebase and making it look much n
 - updated balance widget to include visual difference when some of the balance is locked as well as a mouseover event that shows locked / unlocked bal
 - conditional validation for the transaction dialog box
 - fixes a bug that would cause the historical and balance to be incorrectly displayed when a portion of the balane was locked
-- bumps turtlecoin-wallet-backend
+- bumps cirquity-wallet-backend
 - fixes the send field allowing negative numbers
 - fixes a bug that would cause the send field to add wrong (eg 1 + 0.1 = 1.11)
 - adds aarmv7 / arm64 support
@@ -126,7 +126,7 @@ This is a pretty big release, cleaning up the codebase and making it look much n
 - sends a native OS notification when you receive a transaction
 - implements an automatic save every few minutes if the wallet is left running
 - windows now has a configurable installer which allows installation in a custom directory or for all users (all users requires administrative permissions)
-- turtlecoin-wallet-backend-js version upgraded, now connects to daemon with KeepAlive = true
+- cirquity-wallet-backend-js version upgraded, now connects to daemon with KeepAlive = true
 - fixes copy + paste on MacOS
 - various UI improvements
 
@@ -145,7 +145,7 @@ This is a pretty big release, cleaning up the codebase and making it look much n
 
 ## v0.0.15
 
-- bumps turtlecoin-wallet-backend-js dependency to latest version
+- bumps cirquity-wallet-backend-js dependency to latest version
 - hides the navigation when no wallet is open
 - redirects to the main Wallet page any time after opening a new wallet
 - various bug fixes
@@ -156,7 +156,7 @@ This is a pretty big release, cleaning up the codebase and making it look much n
 
 ## v0.0.13
 
-- upgrade the turtlecoin-wallet-backend dependency to fix a bug that was caused by a batch of blocks in the ~200k range, also no longer checks for an update in development mode
+- upgrade the cirquity-wallet-backend dependency to fix a bug that was caused by a batch of blocks in the ~200k range, also no longer checks for an update in development mode
 
 ## v0.0.12
 

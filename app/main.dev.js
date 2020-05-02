@@ -1,6 +1,8 @@
 // Copyright (C) 2019 ExtraHash
+// Copyright (C) 2020 Deeterd
 //
 // Please see the included LICENSE file for more information.
+
 import path from 'path';
 import os from 'os';
 import fs from 'fs';
@@ -44,10 +46,7 @@ let frontendReady = false;
 let backendReady = false;
 let configReady = false;
 
-const directories = [
-  `${homedir}/.cirqwallet`,
-  `${homedir}/.cirqwallet/logs`
-];
+const directories = [`${homedir}/.cirqwallet`, `${homedir}/.cirqwallet/logs`];
 
 const [programDirectory] = directories;
 
@@ -238,7 +237,7 @@ app.on('ready', async () => {
 
   backendWindow = new BrowserWindow({
     show: false,
-    frame: false,
+    titleBarStyle: 'hidden',
     webPreferences: {
       nodeIntegration: true
     }

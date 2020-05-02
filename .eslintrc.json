@@ -21,9 +21,12 @@
     ],
     "react/button-has-type": [
       true,
-      { "button": true, "submit": true, "reset": true }
+      {
+        "button": true,
+        "submit": true,
+        "reset": true
+      }
     ],
-    "header/header": [2, "app/mainWindow/constants/header.js"],
     "react/no-array-index-key": false,
     "global-require": 0,
     "flowtype/no-weak-types": "off",

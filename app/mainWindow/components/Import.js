@@ -1,11 +1,12 @@
 // Copyright (C) 2019 ExtraHash
+// Copyright (C) 2020 Deeterd
 //
 // Please see the included LICENSE file for more information.
 import React, { Component } from 'react';
 import ReactTooltip from 'react-tooltip';
 import { remote } from 'electron';
 import log from 'electron-log';
-import { WalletBackend, Daemon } from 'turtlecoin-wallet-backend';
+import { WalletBackend, Daemon } from 'cirquity-wallet-backend';
 import NavBar from './NavBar';
 import BottomBar from './BottomBar';
 import Redirector from './Redirector';

@@ -1,4 +1,5 @@
 // Copyright (C) 2019 ExtraHash
+// Copyright (C) 2020 Deeterd
 //
 // Please see the included LICENSE file for more information.
 import fs from 'fs';
@@ -8,7 +9,7 @@ import jdenticon from 'jdenticon';
 import {
   validateAddress,
   validatePaymentID
-} from 'turtlecoin-wallet-backend/dist/lib/ValidateParameters';
+} from 'cirquity-wallet-backend/dist/lib/ValidateParameters';
 import NavBar from './NavBar';
 import BottomBar from './BottomBar';
 import Redirector from './Redirector';

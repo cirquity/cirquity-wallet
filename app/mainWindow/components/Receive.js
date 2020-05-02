@@ -1,4 +1,5 @@
 // Copyright (C) 2019 ExtraHash
+// Copyright (C) 2020 Deeterd
 //
 // Please see the included LICENSE file for more information.
 import crypto from 'crypto';
@@ -8,7 +9,7 @@ import ReactTooltip from 'react-tooltip';
 import {
   createIntegratedAddress,
   validatePaymentID
-} from 'turtlecoin-wallet-backend';
+} from 'cirquity-wallet-backend';
 import { session, il8n, loginCounter, config, wbConfig } from '../index';
 import NavBar from './NavBar';
 import BottomBar from './BottomBar';

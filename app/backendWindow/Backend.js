@@ -1,4 +1,5 @@
 // Copyright (C) 2019 ExtraHash
+// Copyright (C) 2020 Deeterd
 //
 // Please see the included LICENSE file for more information.
 import {
@@ -6,7 +7,7 @@ import {
   WalletBackend,
   LogLevel,
   prettyPrintAmount
-} from 'turtlecoin-wallet-backend';
+} from 'cirquity-wallet-backend';
 import log from 'electron-log';
 import { ipcRenderer } from 'electron';
 import { createObjectCsvWriter } from 'csv-writer';
@@ -185,7 +186,7 @@ export default class Backend {
 
     const result = await this.wallet.sendTransactionAdvanced(
       destinations, // destinations
-      undefined, // mixin
+      walletBackendConfig.defaultMixin, // mixin // @TODO: make it dynamic
       undefined, // fee
       paymentID, // paymentID
       undefined, // subwalletsToTakeFrom
@@ -198,6 +199,7 @@ export default class Backend {
 
     if (result.success) {
       const [unlockedBalance, lockedBalance] = this.wallet.getBalance();
+      console.log(unlockedBalance, lockedBalance);
       const balance = parseInt(unlockedBalance + lockedBalance, 10);
       const response = {
         status: 'SUCCESS',
@@ -393,6 +395,7 @@ export default class Backend {
   }
 
   async walletInit(wallet: any): Promise<void> {
+    console.log('walletInit');
     this.wallet = wallet;
     this.setLogLevel(this.logLevel);
     this.wallet.on(
@@ -435,6 +438,9 @@ export default class Backend {
       this.getFormattedTransactions(0, 50, false)
     );
     this.getTransactionCount();
+
+    console.log('this.wallet.getBalance()', this.wallet.getBalance());
+
     ipcRenderer.send('fromBackend', 'balance', this.wallet.getBalance());
     ipcRenderer.send('fromBackend', 'walletActiveStatus', true);
     ipcRenderer.send('fromBackend', 'authenticationStatus', true);
