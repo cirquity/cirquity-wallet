@@ -237,7 +237,7 @@ app.on('ready', async () => {
 
   backendWindow = new BrowserWindow({
     show: false,
-    titleBarStyle: 'hidden',
+    frame: false,
     webPreferences: {
       nodeIntegration: true
     }

@@ -4,5 +4,5 @@
   "ticker": "CIRQ",
   "scanCoinbaseTransactions": false,
   "customUserAgentString": "cirqwallet-v0.2.0",
-  "defaultMixin": 1
+  "defaultMixin": 0
 }
