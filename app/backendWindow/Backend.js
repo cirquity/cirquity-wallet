@@ -181,12 +181,15 @@ export default class Backend {
 
   async prepareTransaction(transaction): void {
     const { address, amount, paymentID, sendAll } = transaction;
-
+    const mixin =
+      sendAll || amount >= 100000000
+        ? walletBackendConfig.defaultMixin
+        : undefined;
     const destinations = [[address, sendAll ? 100000 : amount]];
 
     const result = await this.wallet.sendTransactionAdvanced(
       destinations, // destinations
-      walletBackendConfig.defaultMixin, // mixin // @TODO: make it dynamic
+      mixin, // mixin
       undefined, // fee
       paymentID, // paymentID
       undefined, // subwalletsToTakeFrom
