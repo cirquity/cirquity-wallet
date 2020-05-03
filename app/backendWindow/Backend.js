@@ -7,7 +7,7 @@ import {
   WalletBackend,
   LogLevel,
   prettyPrintAmount
-} from 'cirquity-wallet-backend';
+} from 'turtlecoin-wallet-backend';
 import log from 'electron-log';
 import { ipcRenderer } from 'electron';
 import { createObjectCsvWriter } from 'csv-writer';

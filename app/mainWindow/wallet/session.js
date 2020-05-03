@@ -4,7 +4,7 @@
 // Please see the included LICENSE file for more information.
 import request from 'request-promise';
 import log from 'electron-log';
-import { Daemon, DaemonConnection } from 'cirquity-wallet-backend';
+import { Daemon, DaemonConnection } from 'turtlecoin-wallet-backend';
 import { config, eventEmitter } from '../index';
 import { roundToNearestHundredth } from '../utils/utils';
 

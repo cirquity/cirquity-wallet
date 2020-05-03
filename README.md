@@ -17,7 +17,7 @@ Cirq Wallet is a Cirquity wallet that uses
 
 - [Electron](http://electron.atom.io/)
 - [React](https://facebook.github.io/react/)
-- [Cirquity-Wallet-Backend-JS](https://github.com/cirquity/cirquity-wallet-backend-js)
+- [Turtlecoin-wallet-backend-JS](https://github.com/cirquity/turtlecoin-wallet-backend-js)
 - [Redux](https://github.com/reactjs/redux)
 - [React Router](https://github.com/reactjs/react-router)
 - [Webpack](http://webpack.github.io/docs/)

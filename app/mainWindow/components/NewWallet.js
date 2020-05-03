@@ -7,7 +7,7 @@ import ReactTooltip from 'react-tooltip';
 import { clipboard, remote } from 'electron';
 import log from 'electron-log';
 import jdenticon from 'jdenticon';
-import { WalletBackend, Daemon } from 'cirquity-wallet-backend';
+import { WalletBackend, Daemon } from 'turtlecoin-wallet-backend';
 import NavBar from './NavBar';
 import BottomBar from './BottomBar';
 import Redirector from './Redirector';

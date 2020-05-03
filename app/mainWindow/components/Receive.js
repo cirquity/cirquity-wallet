@@ -9,7 +9,7 @@ import ReactTooltip from 'react-tooltip';
 import {
   createIntegratedAddress,
   validatePaymentID
-} from 'cirquity-wallet-backend';
+} from 'turtlecoin-wallet-backend';
 import { session, il8n, loginCounter, config, wbConfig } from '../index';
 import NavBar from './NavBar';
 import BottomBar from './BottomBar';

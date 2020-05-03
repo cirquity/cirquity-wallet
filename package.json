@@ -261,7 +261,7 @@
     "semver": "^6.2.0",
     "source-code-pro": "^2.30.2",
     "tail": "^2.0.3",
-    "cirquity-wallet-backend": "git+https://github.com/cirquity/cirquity-wallet-backend-js.git"
+    "turtlecoin-wallet-backend": "^5.0.4"
   },
   "devEngines": {
     "node": ">=10.x",
