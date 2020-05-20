@@ -16,6 +16,7 @@ import {
   atomicToHuman,
   convertTimestamp
 } from '../utils/utils';
+import Config from '../../Config';
 
 let displayedTransactionCount: number = 50;
 
@@ -112,9 +113,7 @@ export default class Home extends Component<Props, State> {
     const hash = event.target.value;
 
     remote.shell.openExternal(
-      `https://explorer.cirquity.com/transaction.html?hash=${encodeURIComponent(
-        hash
-      )}`
+      `${Config.explorerBaseURL + encodeURIComponent(hash)}`
     );
   };
 
@@ -269,7 +268,7 @@ export default class Home extends Component<Props, State> {
                         {tx[2] < 0 && (
                           <td>
                             <p className="has-text-danger has-text-right">
-                              {displayCurrency === 'CIRQ' &&
+                              {displayCurrency === Config.ticker &&
                                 atomicToHuman(tx[2], true)}
                               {displayCurrency === 'fiat' &&
                                 symbolLocation === 'prefix' &&
@@ -296,7 +295,7 @@ export default class Home extends Component<Props, State> {
                         {tx[2] > 0 && (
                           <td>
                             <p className="has-text-right">
-                              {displayCurrency === 'CIRQ' &&
+                              {displayCurrency === Config.ticker &&
                                 atomicToHuman(tx[2], true)}
                               {displayCurrency === 'fiat' &&
                                 symbolLocation === 'prefix' &&
@@ -317,7 +316,7 @@ export default class Home extends Component<Props, State> {
                         )}
                         <td>
                           <p className="has-text-right">
-                            {displayCurrency === 'CIRQ' &&
+                            {displayCurrency === Config.ticker &&
                               atomicToHuman(tx[3], true)}
                             {displayCurrency === 'fiat' &&
                               symbolLocation === 'prefix' &&
@@ -380,7 +379,7 @@ export default class Home extends Component<Props, State> {
                                     {tx[1]} <br />
                                     {tx[5] !== '' ? tx[5] : 'none'}
                                     <br />
-                                    {atomicToHuman(tx[7], true)} CIRQ
+                                    {atomicToHuman(tx[7], true)} {Config.ticker}
                                     <br />
                                     <p
                                       className={
@@ -389,7 +388,7 @@ export default class Home extends Component<Props, State> {
                                           : ''
                                       }
                                     >
-                                      {atomicToHuman(tx[2], true)} CIRQ
+                                      {atomicToHuman(tx[2], true)} {Config.ticker}
                                     </p>
                                     <br />
                                     <br />

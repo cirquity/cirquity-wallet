@@ -23,6 +23,7 @@ import MenuBuilder from './menu';
 import iConfig from './mainWindow/constants/config';
 import packageInfo from '../package.json';
 import MessageRelayer from './MessageRelayer';
+import Config from './Config';
 
 const windowEvents = new EventEmitter();
 
@@ -183,9 +184,7 @@ contextMenu({
       visible: params.selectionText.trim().length === 64,
       click: () => {
         shell.openExternal(
-          `https://explorer.cirquity.com/transaction.html?hash=${encodeURIComponent(
-            params.selectionText
-          )}`
+          `${Config.explorerBaseURL}${encodeURIComponent(params.selectionText)}`
         );
       }
     },

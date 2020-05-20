@@ -7,6 +7,7 @@ import log from 'electron-log';
 import LocalizedStrings from 'react-localization';
 import npmPackage from '../package.json';
 import { messageRelayer } from './main.dev';
+import Config from './Config';
 
 export const il8n = new LocalizedStrings({
   // eslint-disable-next-line global-require
@@ -55,9 +56,7 @@ export default class MenuBuilder {
         {
           label: `${il8n.about} ${productName}`,
           click: () => {
-            shell.openExternal(
-              'http://github.com/cirquity/cirquity-wallet#readme'
-            );
+            shell.openExternal(`${Config.repoLink}/#readme`);
           }
         },
         { type: 'separator' },
@@ -248,17 +247,13 @@ export default class MenuBuilder {
         {
           label: il8n.report_bug,
           click() {
-            shell.openExternal(
-              'https://github.com/cirquity/cirquity-wallet/issues'
-            );
+            shell.openExternal(`${Config.repoLink}/issues`);
           }
         },
         {
           label: il8n.feature_request,
           click() {
-            shell.openExternal(
-              'https://github.com/cirquity/cirquity-wallet/issues'
-            );
+            shell.openExternal(`${Config.repoLink}/issues`);
           }
         }
       ]
@@ -471,25 +466,19 @@ export default class MenuBuilder {
           {
             label: il8n.about,
             click: () => {
-              shell.openExternal(
-                'https://github.com/cirquity/cirquity-wallet#readme'
-              );
+              shell.openExternal(`${Config.repoLink}#readme`);
             }
           },
           {
             label: il8n.report_bug,
             click: () => {
-              shell.openExternal(
-                'https://github.com/cirquity/cirquity-wallet/issues'
-              );
+              shell.openExternal(`${Config.repoLink}/issues`);
             }
           },
           {
             label: il8n.feature_request,
             click: () => {
-              shell.openExternal(
-                'https://github.com/cirquity/cirquity-wallet/issues'
-              );
+              shell.openExternal(`${Config.repoLink}/issues`);
             }
           }
         ]

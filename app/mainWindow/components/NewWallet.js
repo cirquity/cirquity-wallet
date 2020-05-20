@@ -12,7 +12,8 @@ import NavBar from './NavBar';
 import BottomBar from './BottomBar';
 import Redirector from './Redirector';
 import { uiType } from '../utils/utils';
-import { backupToFile, eventEmitter, reInitWallet, config, wbConfig } from '../index';
+import { backupToFile, eventEmitter, reInitWallet, config } from '../index';
+import Config from '../../Config';
 
 type State = {
   darkMode: boolean,
@@ -32,10 +33,7 @@ export default class NewWallet extends Component<Props, State> {
     super(props);
     this.state = {
       darkMode: config.darkMode,
-      newWallet: WalletBackend.createWallet(
-        new Daemon('api-block.cirquity.com', 443, false),
-        wbConfig
-      ),
+      newWallet: WalletBackend.createWallet(Config.defaultDaemon, Config),
       activePage: 'generate',
       password: '',
       confirmPassword: '',
@@ -137,10 +135,10 @@ export default class NewWallet extends Component<Props, State> {
     if (currentPageNumber === 4) {
       // import the seed so we can confirm it works
       const [confirmWallet, err] = WalletBackend.importWalletFromSeed(
-        new Daemon('api-block.cirquity.com', 443, false),
+        Config.defaultDaemon,
         100000,
         confirmSeed,
-        wbConfig
+        Config
       );
 
       // the seed wasn't valid

@@ -2,6 +2,9 @@
 // Copyright (C) 2020 Deeterd
 //
 // Please see the included LICENSE file for more information.
+
+import Config from '../../Config';
+
 export function uiType(darkMode: boolean) {
   const backgroundColor = darkMode
     ? 'has-background-dark'
@@ -66,9 +69,9 @@ export function formatLikeCurrency(x: number) {
 
 export function atomicToHuman(x: number, prettyPrint?: boolean) {
   if (prettyPrint || false) {
-    return `${formatLikeCurrency((x / 100).toFixed(2))}`;
+    return `${formatLikeCurrency((x / (10**Config.decimalPlaces)).toFixed(Config.decimalPlaces))}`;
   }
-  return x / 100;
+  return x / (10**Config.decimalPlaces);
 }
 
 export function convertTimestamp(timestamp: Date) {

@@ -13,6 +13,7 @@ import { ipcRenderer } from 'electron';
 import { createObjectCsvWriter } from 'csv-writer';
 import { atomicToHuman, convertTimestamp } from '../mainWindow/utils/utils';
 import walletBackendConfig from '../mainWindow/constants/walletBackend';
+import Config from '../Config';
 
 export default class Backend {
   notifications: boolean;
@@ -158,7 +159,7 @@ export default class Backend {
       console.log(
         `Sent transaction, hash ${
           result.transactionHash
-        }, fee ${prettyPrintAmount(result.fee)}`
+        }, fee ${prettyPrintAmount(result.fee, Config)}`
       );
       const response = {
         status: 'SUCCESS',
@@ -180,17 +181,35 @@ export default class Backend {
   }
 
   async prepareTransaction(transaction): void {
+    const [unlockedBalance, lockedBalance] = this.wallet.getBalance();
+    const networkHeight = this.daemon.getNetworkBlockCount();
+    // eslint-disable-next-line no-unused-vars
+    const [feeAddress, nodeFee] = this.wallet.getNodeFee();
+    let txFee = Config.minimumFee;
     const { address, amount, paymentID, sendAll } = transaction;
     const mixin =
       sendAll || amount >= 100000000
-        ? walletBackendConfig.defaultMixin
+        ? Config.mixinLimits.getDefaultMixinByHeight(networkHeight)
         : undefined;
     const destinations = [[address, sendAll ? 100000 : amount]];
+
+    if (sendAll) {
+      destinations.push([
+        address,
+        networkHeight >= Config.feePerByteHeight
+          ? 1
+          : unlockedBalance - nodeFee - txFee
+      ]);
+    } else {
+      destinations.push([address, amount]);
+    }
 
     const result = await this.wallet.sendTransactionAdvanced(
       destinations, // destinations
       mixin, // mixin
-      undefined, // fee
+      networkHeight >= Config.feePerByteHeight
+        ? undefined
+        : { isFixedFee: true, fixedFee: txFee }, // fee
       paymentID, // paymentID
       undefined, // subwalletsToTakeFrom
       undefined, // changeAddress
@@ -201,17 +220,33 @@ export default class Backend {
     log.info(result);
 
     if (result.success) {
-      const [unlockedBalance, lockedBalance] = this.wallet.getBalance();
-      console.log(unlockedBalance, lockedBalance);
+      let actualAmount = amount;
+
+      if (networkHeight >= Config.feePerByteHeight) {
+        txFee = result.fee;
+      }
+
+      if (sendAll) {
+        let transactionSum = 0;
+
+        /* We could just get the sum by calling getBalance.. but it's
+         * possibly just changed. Safest to iterate over prepared
+         * transaction and calculate it. */
+        for (const input of result.preparedTransaction.inputs) {
+          transactionSum += input.input.amount;
+        }
+        actualAmount = transactionSum - txFee - nodeFee;
+      }
+
       const balance = parseInt(unlockedBalance + lockedBalance, 10);
       const response = {
         status: 'SUCCESS',
         hash: result.transactionHash,
         address,
         paymentID,
-        amount: sendAll ? balance : amount,
-        fee: result.fee,
-        nodeFee: this.wallet.getNodeFee()[1],
+        amount: actualAmount,
+        fee: txFee,
+        nodeFee,
         error: undefined
       };
       ipcRenderer.send('fromBackend', 'prepareTransactionResponse', response);
@@ -225,8 +260,8 @@ export default class Backend {
         address,
         paymentID,
         amount,
-        fee: result.fee,
-        nodeFee: this.wallet.getNodeFee()[1],
+        fee: txFee,
+        nodeFee,
         error: result.error
       };
       ipcRenderer.send('fromBackend', 'prepareTransactionResponse', response);
@@ -424,7 +459,7 @@ export default class Backend {
           body: `You've just received ${atomicToHuman(
             transaction.totalAmount(),
             true
-          )} CIRQ.`
+          )} ${Config.ticker}.`
         });
       }
     });
@@ -492,7 +527,7 @@ export default class Backend {
       this.daemon,
       this.walletFile,
       this.walletPassword,
-      this.wbConfig
+      Config
     );
     if (!error) {
       this.walletInit(openWallet);

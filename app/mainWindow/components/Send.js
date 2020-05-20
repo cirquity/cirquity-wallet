@@ -25,6 +25,7 @@ import BottomBar from './BottomBar';
 import Redirector from './Redirector';
 import { uiType, atomicToHuman, search } from '../utils/utils';
 import donateInfo from '../constants/donateInfo.json';
+import Config from "../../Config";
 
 type Props = {
   uriAddress?: string,
@@ -232,7 +233,12 @@ export default class Send extends Component<Props, State> {
     if (messageType === 'prepareTransactionResponse') {
       eventEmitter.emit('transactionCancel');
       if (data.status === 'SUCCESS') {
+        const networkHeight = session.getNetworkBlockHeight();
+        let txFee = Config.minimumFee;
         const { address, paymentID, amount, fee, nodeFee, hash } = data;
+        if (networkHeight >= Config.feePerByteHeight) {
+          txFee = fee;
+        }
         session.setPreparedTransactionHash(hash);
         const modalMessage = (
           <div>
@@ -248,17 +254,17 @@ export default class Send extends Component<Props, State> {
             <p className={`subtitle ${textColor}`}>
               <b>Total Amount: (includes fees)</b>
               <br />
-              {atomicToHuman(amount + nodeFee + fee, true)} CIRQ
+              {atomicToHuman(amount + nodeFee + txFee, true)} {Config.ticker}
             </p>
             <p className={`subtitle ${textColor}`}>
               <b>Fee:</b>
               <br />
-              {atomicToHuman(nodeFee + fee, true)} CIRQ
+              {atomicToHuman(nodeFee + txFee, true)} {Config.ticker}
               {nodeFee > 0 &&
                 ` (including a node fee of ${atomicToHuman(
                   nodeFee,
                   true
-                )} CIRQ)`}
+                )} ${Config.ticker})`}
             </p>{' '}
             {paymentID !== '' && (
               <p className={`subtitle ${textColor}`}>
@@ -304,12 +310,12 @@ export default class Send extends Component<Props, State> {
 
     const sufficientFunds = sendAll
       ? true
-      : (session.getUnlockedBalance() + session.getLockedBalance()) / 100 >=
+      : (session.getUnlockedBalance() + session.getLockedBalance()) / (10 ** Config.decimalPlaces) >=
         Number(enteredAmount);
 
     const sufficientUnlockedFunds = sendAll
       ? true
-      : session.getUnlockedBalance() > Number(enteredAmount) / 100;
+      : session.getUnlockedBalance() > Number(enteredAmount) / (10 ** Config.decimalPlaces);
 
     if (!sendAll && (sendToAddress === '' || enteredAmount === '')) {
       return;
@@ -358,9 +364,9 @@ export default class Send extends Component<Props, State> {
     const transactionData = {
       address: sendToAddress,
       amount:
-        displayCurrency === 'CIRQ'
-          ? Number(enteredAmount) * 100
-          : (Number(enteredAmount) * 100) / fiatPrice,
+        displayCurrency === Config.ticker
+          ? Number(enteredAmount) * (10 ** Config.decimalPlaces)
+          : (Number(enteredAmount) * (10 ** Config.decimalPlaces)) / fiatPrice,
       paymentID,
       sendAll
     };
@@ -379,7 +385,7 @@ export default class Send extends Component<Props, State> {
 
     await this.setState({
       selectedContact: { label: sendToAddress, value: sendToAddress },
-      enteredAmount: String(amount / 100),
+      enteredAmount: String(amount / (10 ** Config.decimalPlaces)),
       sendToAddress,
       paymentID,
       sendAll: false
@@ -422,7 +428,7 @@ export default class Send extends Component<Props, State> {
         : totalAmount - 10 - parseInt(nodeFee, 10);
     this.setState({
       enteredAmount:
-        displayCurrency === 'CIRQ'
+        displayCurrency === Config.ticker
           ? atomicToHuman(enteredAmount, false).toString()
           : atomicToHuman(enteredAmount * fiatPrice, false).toString()
     });
@@ -579,7 +585,7 @@ export default class Send extends Component<Props, State> {
                           : `How much to send (eg. ${
                               displayCurrency === 'fiat'
                                 ? exampleAmount
-                                : '100 CIRQ'
+                                : `100 ${Config.ticker}`
                             })`
                       }
                       value={enteredAmount}

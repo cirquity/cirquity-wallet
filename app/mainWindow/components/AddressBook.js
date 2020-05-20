@@ -16,7 +16,7 @@ import Redirector from './Redirector';
 import { uiType } from '../utils/utils';
 import { addressList, directories, loginCounter, config } from '../index';
 import routes from '../constants/routes';
-import walletBackendConfig from '../constants/walletBackend';
+import Config from '../../Config';
 
 type State = {
   darkMode: boolean,
@@ -38,8 +38,6 @@ class AddressBook extends Component<Props, State> {
 
   state: State;
 
-  wbConfig: any;
-
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -54,7 +52,6 @@ class AddressBook extends Component<Props, State> {
       badPaymentID: false,
       pageAnimationIn: loginCounter.getAnimation('/addressbook')
     };
-    this.wbConfig = walletBackendConfig;
     this.showAddContactForm = this.showAddContactForm.bind(this);
     this.handleNewAddressChange = this.handleNewAddressChange.bind(this);
     this.handleNewNameChange = this.handleNewNameChange.bind(this);
@@ -152,7 +149,7 @@ class AddressBook extends Component<Props, State> {
     let badAddress = false;
     let badPaymentID = false;
 
-    badAddress = !validateAddress(newAddress, true, this.wbConfig);
+    badAddress = !validateAddress(newAddress, true, Config);
 
     const { errorCode } = validatePaymentID(newPaymentID);
 

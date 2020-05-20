@@ -11,7 +11,8 @@ import NavBar from './NavBar';
 import BottomBar from './BottomBar';
 import Redirector from './Redirector';
 import { uiType } from '../utils/utils';
-import { eventEmitter, reInitWallet, config, wbConfig } from '../index';
+import { eventEmitter, reInitWallet, config } from '../index';
+import Config from '../../Config';
 
 type State = {
   darkMode: boolean,
@@ -134,11 +135,11 @@ export default class ImportKey extends Component<Props, State> {
 
     if (currentPageNumber === 1) {
       const [restoredWallet, error] = WalletBackend.importWalletFromKeys(
-        new Daemon('api-block.cirquity.com', 443, false),
+        Config.defaultDaemon,
         scanHeight === '' ? 0 : Number(scanHeight),
         privateViewKey,
         privateSpendKey,
-        wbConfig
+        Config
       );
 
       if (error) {

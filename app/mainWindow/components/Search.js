@@ -25,6 +25,7 @@ import {
 } from '../index';
 import routes from '../constants/routes';
 import settings from '../constants/settings';
+import Config from '../../Config';
 
 type Props = {
   query: string
@@ -159,9 +160,7 @@ export default class Search extends Component<Props, States> {
     const { query } = this.state;
 
     remote.shell.openExternal(
-      `https://explorer.cirquity.com/transaction.html?hash=${encodeURIComponent(
-        query
-      )}`
+      `${Config.explorerBaseURL + encodeURIComponent(query)}`
     );
   };
 
@@ -169,9 +168,7 @@ export default class Search extends Component<Props, States> {
     const hash = event.target.value;
 
     remote.shell.openExternal(
-      `https://explorer.cirquity.com/transaction.html?hash=${encodeURIComponent(
-        hash
-      )}`
+      `${Config.explorerBaseURL + encodeURIComponent(hash)}`
     );
   };
 
@@ -442,7 +439,7 @@ export default class Search extends Component<Props, States> {
                           {amount < 0 && (
                             <td>
                               <p className="has-text-danger has-text-right">
-                                {displayCurrency === 'CIRQ' &&
+                                {displayCurrency === Config.ticker &&
                                   atomicToHuman(amount, true)}
                                 {displayCurrency === 'fiat' &&
                                   symbolLocation === 'prefix' &&
@@ -473,7 +470,7 @@ export default class Search extends Component<Props, States> {
                           {amount > 0 && (
                             <td>
                               <p className="has-text-right">
-                                {displayCurrency === 'CIRQ' &&
+                                {displayCurrency === Config.ticker &&
                                   atomicToHuman(amount, true)}
                                 {displayCurrency === 'fiat' &&
                                   symbolLocation === 'prefix' &&
@@ -548,7 +545,7 @@ export default class Search extends Component<Props, States> {
                                       {hash} <br />
                                       {paymentID !== '' ? paymentID : 'none'}
                                       <br />
-                                      {atomicToHuman(fee, true)} CIRQ
+                                      {atomicToHuman(fee, true)} {Config.ticker}
                                       <br />
                                       <p
                                         className={
@@ -557,7 +554,7 @@ export default class Search extends Component<Props, States> {
                                             : ''
                                         }
                                       >
-                                        {atomicToHuman(amount, true)} CIRQ
+                                        {atomicToHuman(amount, true)} {Config.ticker}
                                       </p>
                                       <br />
                                       <br />

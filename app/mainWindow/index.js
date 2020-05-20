@@ -23,6 +23,7 @@ import AutoUpdater from './wallet/autoUpdater';
 import LoginCounter from './wallet/loginCounter';
 import { uiType } from './utils/utils';
 import ProtonConfig from './wallet/protonConfig';
+import Config from "../Config";
 
 export function savedInInstallDir(savePath: string) {
   const programDirectory = path.resolve(remote.app.getAppPath(), '../../');
@@ -431,9 +432,7 @@ ipcRenderer.on('handleOpen', handleOpen);
 eventEmitter.on('handleOpen', handleOpen);
 
 function handleAbout() {
-  remote.shell.openExternal(
-    'https://github.com/cirquity/cirquity-wallet#readme'
-  );
+  remote.shell.openExternal(`${Config.repoLink}#readme`);
 }
 
 function handleHelp() {
@@ -441,9 +440,7 @@ function handleHelp() {
 }
 
 function handleIssues() {
-  remote.shell.openExternal(
-    'https://github.com/cirquity/cirquity-wallet/issues'
-  );
+  remote.shell.openExternal(`${Config.repoLink}/issues`);
 }
 
 eventEmitter.on('handleHelp', handleHelp);

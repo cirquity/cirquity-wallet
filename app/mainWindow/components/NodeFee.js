@@ -5,6 +5,7 @@
 import React, { Component } from 'react';
 import { session, eventEmitter, il8n } from '../index';
 import { atomicToHuman } from '../utils/utils';
+import Config from '../../Config';
 
 type Props = {
   size: string,
@@ -53,7 +54,7 @@ export default class NodeFee extends Component<Props, State> {
           <div className="tags has-addons">
             <span className={`tag ${color} ${size}`}>{il8n.node_fee}</span>
             <span className={`tag is-danger ${size}`}>
-              {atomicToHuman(nodeFee, true)} {il8n.CIRQ}
+              {atomicToHuman(nodeFee, true)} {Config.ticker}
             </span>
           </div>
         </div>
