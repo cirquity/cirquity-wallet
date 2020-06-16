@@ -10,11 +10,12 @@ import {
   createIntegratedAddress,
   validatePaymentID
 } from 'turtlecoin-wallet-backend';
-import { session, il8n, loginCounter, config, wbConfig } from '../index';
+import { session, il8n, loginCounter, config } from '../index';
 import NavBar from './NavBar';
 import BottomBar from './BottomBar';
 import Redirector from './Redirector';
 import { uiType } from '../utils/utils';
+import Config from '../../Config';
 
 type Props = {
   copyToClipboard: string => void
@@ -71,7 +72,7 @@ export default class Receive extends Component<Props, State> {
     const integratedAddress = createIntegratedAddress(
       session.getPrimaryAddress(),
       paymentID,
-      wbConfig
+      Config
     );
     this.setState({
       masterSwitch: true,

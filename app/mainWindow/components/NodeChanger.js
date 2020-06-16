@@ -162,84 +162,84 @@ export default class NodeChanger extends Component<Props, State> {
     } = this.state;
     return (
       <form onSubmit={this.changeNode}>
-        <p className={`has-text-weight-bold ${textColor}`}>
-          Remote Node (node:port)
-        </p>
-        <div className="field has-addons is-expanded">
-          <div className="control is-expanded has-icons-left">
+        <div>
+          <p className={`has-text-weight-bold ${textColor}`}>
+            Remote Node (node:port)
+          </p>
+          <div className="field has-addons is-expanded">
+            <div className="control is-expanded has-icons-left">
+              {nodeChangeInProgress === false && (
+                <input
+                  className="input has-icons-left"
+                  type="text"
+                  value={connectionString}
+                  onKeyPress={event => {
+                    if (event.key === 'Enter') {
+                      this.changeNode();
+                    }
+                  }}
+                  onChange={event => {
+                    this.setState({
+                      connectionString: event.target.value.trim()
+                    });
+                  }}
+                />
+              )}
+              {ssl === true && (
+                <span className="icon is-small is-left">
+                  <i className="fas fa-lock"/>
+                </span>
+              )}
+              {ssl === false && (
+                <span className="icon is-small is-left">
+                  <i className="fas fa-unlock"/>
+                </span>
+              )}
+              {nodeChangeInProgress === true && (
+                <input
+                  className="input"
+                  type="text"
+                  placeholder="connecting..."
+                  onChange={this.handleNodeInputChange}
+                />
+              )}
+              {nodeChangeInProgress === true && (
+                <span className="icon is-small is-left">
+                  <i className="fas fa-sync fa-spin"/>
+                </span>
+              )}
+              <br />
+              <br />
+            </div>
+            {nodeChangeInProgress === true && (
+              <div className="control">
+                <button className="button is-success is-loading">
+                  <span className="icon is-small">
+                    <i className="fa fa-network-wired"/>
+                  </span>
+                  &nbsp;&nbsp;{il8n.connect}
+                </button>
+              </div>
+            )}
             {nodeChangeInProgress === false && (
-              <input
-                className="input has-icons-left"
-                type="text"
-                value={connectionString}
-                onKeyPress={event => {
-                  if (event.key === 'Enter') {
-                    this.changeNode();
-                  }
-                }}
-                onChange={event => {
-                  this.setState({
-                    connectionString: event.target.value.trim()
-                  });
-                }}
-              />
+              <div className="control">
+                <button className="button is-success" onClick={this.changeNode}>
+                  <span className="icon is-small">
+                    <i className="fa fa-network-wired" />
+                  </span>
+                  &nbsp;&nbsp;{il8n.connect}
+                </button>
+              </div>
             )}
-            {ssl === true && (
-              <span className="icon is-small is-left">
-                <i className="fas fa-lock" />
-              </span>
-            )}
-            {ssl === false && (
-              <span className="icon is-small is-left">
-                <i className="fas fa-unlock" />
-              </span>
-            )}
-            {nodeChangeInProgress === true && (
-              <input
-                className="input"
-                type="text"
-                placeholder="connecting..."
-                onChange={this.handleNodeInputChange}
-              />
-            )}
-            {nodeChangeInProgress === true && (
-              <span className="icon is-small is-left">
-                <i className="fas fa-sync fa-spin" />
-              </span>
-            )}
-            <br />
-            <br />
-            <p className={`has-text-weight-bold ${textColor}`}>
-              Select a node:
-            </p>
-            <div style={{width: '350px'}}>
-              <Select
-                value={this.state.selectedOptions}
-                onChange={this.handleNodeListChange}
-                options={session.daemons}
-              />
-            </div>
           </div>
-          {nodeChangeInProgress === true && (
-            <div className="control">
-              <button className="button is-success is-loading">
-                <span className="icon is-small">
-                  <i className="fa fa-network-wired" />
-                </span>
-                &nbsp;&nbsp;{il8n.connect}
-              </button>
-            </div>
-          )}
-          {nodeChangeInProgress === false && (
-            <div className="control">
-              <button className="button is-success" onClick={this.changeNode}>
-                <span className="icon is-small">
-                  <i className="fa fa-network-wired" />
-                </span>
-                &nbsp;&nbsp;{il8n.connect}
-              </button>
-            </div>
-          )}
+        </div>
+        <div>
+          <p className={`has-text-weight-bold ${textColor}`}>Select a node:</p>
+          <Select
+            value={this.state.selectedOptions}
+            onChange={this.handleNodeListChange}
+            options={session.daemons}
+          />
         </div>
       </form>
     );

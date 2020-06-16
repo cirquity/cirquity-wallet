@@ -96,16 +96,19 @@ const Config = new function() {
   /**
    * Mapping of height to mixin maximum and mixin minimum
    */
-  this.mixinLimits = new MixinLimits([
-    /* Height: 1,000, minMixin: 0, maxMixin: 100, defaultMixin: 3 */
-    new MixinLimit(1000, 0, 100, 3),
+  this.mixinLimits = new MixinLimits(
+    [
+      /* Height: 1,000, minMixin: 0, maxMixin: 100, defaultMixin: 3 */
+      new MixinLimit(1000, 0, 100, 3),
 
-    /* At height of 300,000 */
-    new MixinLimit(300000, 0, 3, 2),
+      /* At height of 300,000 */
+      new MixinLimit(300000, 0, 3, 1),
 
-    /* At height of 1,000,000 */
-    new MixinLimit(1000000, 0, 3, 2),
-  ], 3 /* Default mixin of 3 before block 440,000 */);
+      /* At height of 1,000,000 */
+      new MixinLimit(1000000, 0, 3, 2)
+    ],
+    3 /* Default mixin of 3 before block 440,000 */
+  );
 
   /**
    * The length of a standard address for your coin
@@ -139,7 +142,7 @@ const Config = new function() {
    * should be equal to your current block count. If it's significantly different,
    * you can offset your timestamp to fix the discrepancy
    */
-  // this.chainLaunchTimestamp = new Date(1000 * 1579553288);
+  this.chainLaunchTimestamp = new Date(1000 * 1579553288);
 
   /**
    * Fee to take on all transactions, in percentage

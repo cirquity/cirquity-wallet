@@ -218,12 +218,13 @@ app.on('ready', async () => {
   await installExtensions();
 
   mainWindow = new BrowserWindow({
-    title: `CirqWallet v${version}`,
+    title: `CirqWallet v${version.toString()}`,
+    titleBarStyle: 'hidden',
     useContentSize: true,
     show: false,
-    width: 1250,
+    width: 1024,
     height: 625,
-    minWidth: 1250,
+    minWidth: 1024,
     minHeight: 625,
     backgroundColor: '#121212',
     icon: path.join(__dirname, 'images/icon.png'),

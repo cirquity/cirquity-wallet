@@ -25,7 +25,7 @@ import BottomBar from './BottomBar';
 import Redirector from './Redirector';
 import { uiType, atomicToHuman, search } from '../utils/utils';
 import donateInfo from '../constants/donateInfo.json';
-import Config from "../../Config";
+import Config from '../../Config';
 
 type Props = {
   uriAddress?: string,

@@ -18,12 +18,11 @@ import { configureStore, history } from './store/configureStore';
 import './app.global.css';
 import WalletSession from './wallet/session';
 import iConfig from './constants/config';
-import walletBackendConfig from './constants/walletBackend';
 import AutoUpdater from './wallet/autoUpdater';
 import LoginCounter from './wallet/loginCounter';
 import { uiType } from './utils/utils';
 import ProtonConfig from './wallet/protonConfig';
-import Config from "../Config";
+import Config from '../Config';
 
 export function savedInInstallDir(savePath: string) {
   const programDirectory = path.resolve(remote.app.getAppPath(), '../../');
@@ -54,8 +53,6 @@ export const il8n = new LocalizedStrings({
 
 export let config = iConfig;
 export let configManager = null;
-
-export const wbConfig = walletBackendConfig;
 
 export const eventEmitter = new EventEmitter();
 eventEmitter.setMaxListeners(6);

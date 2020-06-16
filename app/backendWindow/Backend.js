@@ -12,7 +12,6 @@ import log from 'electron-log';
 import { ipcRenderer } from 'electron';
 import { createObjectCsvWriter } from 'csv-writer';
 import { atomicToHuman, convertTimestamp } from '../mainWindow/utils/utils';
-import walletBackendConfig from '../mainWindow/constants/walletBackend';
 import Config from '../Config';
 
 export default class Backend {
@@ -31,8 +30,6 @@ export default class Backend {
   wallet: any;
 
   walletActive: boolean = false;
-
-  wbConfig: any;
 
   lastTxAmountRequested: number = 50;
 
@@ -53,10 +50,9 @@ export default class Backend {
     this.walletFile = config.walletFile;
     this.logLevel = config.logLevel;
     this.daemon = new Daemon(this.daemonHost, this.daemonPort, false);
-    this.wbConfig = walletBackendConfig;
 
     if (config.scanCoinbaseTransactions) {
-      this.wbConfig.scanCoinbaseTransactions = config.scanCoinbaseTransactions;
+      Config.scanCoinbaseTransactions = config.scanCoinbaseTransactions;
     }
   }
 
@@ -148,7 +144,7 @@ export default class Backend {
   }
 
   setScanCoinbaseTransactions(value: boolean) {
-    this.wbConfig.scanCoinbaseTransactions = value;
+    Config.scanCoinbaseTransactions = value;
     this.wallet.scanCoinbaseTransactions(value);
   }
 
@@ -181,11 +177,7 @@ export default class Backend {
   }
 
   async prepareTransaction(transaction): void {
-    const [unlockedBalance, lockedBalance] = this.wallet.getBalance();
     const networkHeight = this.daemon.getNetworkBlockCount();
-    // eslint-disable-next-line no-unused-vars
-    const [feeAddress, nodeFee] = this.wallet.getNodeFee();
-    let txFee = Config.minimumFee;
     const { address, amount, paymentID, sendAll } = transaction;
     const mixin =
       sendAll || amount >= 100000000
@@ -193,23 +185,10 @@ export default class Backend {
         : undefined;
     const destinations = [[address, sendAll ? 100000 : amount]];
 
-    if (sendAll) {
-      destinations.push([
-        address,
-        networkHeight >= Config.feePerByteHeight
-          ? 1
-          : unlockedBalance - nodeFee - txFee
-      ]);
-    } else {
-      destinations.push([address, amount]);
-    }
-
     const result = await this.wallet.sendTransactionAdvanced(
       destinations, // destinations
       mixin, // mixin
-      networkHeight >= Config.feePerByteHeight
-        ? undefined
-        : { isFixedFee: true, fixedFee: txFee }, // fee
+      undefined, // fee
       paymentID, // paymentID
       undefined, // subwalletsToTakeFrom
       undefined, // changeAddress
@@ -220,33 +199,17 @@ export default class Backend {
     log.info(result);
 
     if (result.success) {
-      let actualAmount = amount;
-
-      if (networkHeight >= Config.feePerByteHeight) {
-        txFee = result.fee;
-      }
-
-      if (sendAll) {
-        let transactionSum = 0;
-
-        /* We could just get the sum by calling getBalance.. but it's
-         * possibly just changed. Safest to iterate over prepared
-         * transaction and calculate it. */
-        for (const input of result.preparedTransaction.inputs) {
-          transactionSum += input.input.amount;
-        }
-        actualAmount = transactionSum - txFee - nodeFee;
-      }
-
+      const [unlockedBalance, lockedBalance] = this.wallet.getBalance();
+      console.log(unlockedBalance, lockedBalance);
       const balance = parseInt(unlockedBalance + lockedBalance, 10);
       const response = {
         status: 'SUCCESS',
         hash: result.transactionHash,
         address,
         paymentID,
-        amount: actualAmount,
-        fee: txFee,
-        nodeFee,
+        amount: sendAll ? balance : amount,
+        fee: result.fee,
+        nodeFee: this.wallet.getNodeFee()[1],
         error: undefined
       };
       ipcRenderer.send('fromBackend', 'prepareTransactionResponse', response);
@@ -260,8 +223,8 @@ export default class Backend {
         address,
         paymentID,
         amount,
-        fee: txFee,
-        nodeFee,
+        fee: result.fee,
+        nodeFee: this.wallet.getNodeFee()[1],
         error: result.error
       };
       ipcRenderer.send('fromBackend', 'prepareTransactionResponse', response);

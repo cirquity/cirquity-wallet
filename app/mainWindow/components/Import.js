@@ -24,8 +24,7 @@ type State = {
   darkMode: boolean,
   mnemonicSeed: string,
   importedWallet: any,
-  scanHeight: string,
-  wbConfig: any
+  scanHeight: string
 };
 
 type Props = {};

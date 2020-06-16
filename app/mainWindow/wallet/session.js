@@ -150,19 +150,29 @@ export default class WalletSession {
     };
     try {
       const result = await request(requestOptions);
-      console.log(result);
+      log.debug(result);
       if (result.nodes) {
-        const activeNodes = [];
+        const activeNodes = [
+          {
+            label: `${
+              Config.defaultDaemon.getConnectionInfo().host
+            }:${Config.defaultDaemon.getConnectionInfo().port.toString()}`,
+            value: `${
+              Config.defaultDaemon.getConnectionInfo().host
+            }:${Config.defaultDaemon.getConnectionInfo().port.toString()}`
+          }
+        ];
         for (let i = 0; i < result.nodes.length; i++) {
           if (result.nodes[i].online === true) {
             activeNodes.push({
-              value: `${result.nodes[i].url}:${result.nodes[
+              label: `${result.nodes[i].url}:${result.nodes[
                 i
               ].port.toString()}`,
-              label: `${result.nodes[i].url}:${result.nodes[i].port.toString()}`
+              value: `${result.nodes[i].url}:${result.nodes[i].port.toString()}`
             });
           }
         }
+
         log.debug(`Get Total Online nodes: ${result.nodes.length}`);
         this.daemons = activeNodes;
       }
