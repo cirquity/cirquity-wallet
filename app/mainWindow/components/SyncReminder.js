@@ -3,7 +3,7 @@
 //
 // Please see the included LICENSE file for more information.
 import React, { Component } from 'react';
-import { session, eventEmitter } from '../index';
+import {session, eventEmitter, i18n} from '../index';
 import { uiType } from '../utils/utils';
 
 type Props = {
@@ -55,20 +55,17 @@ export default class SyncReminder extends Component<Props, State> {
       <div className="syncreminder">
         {syncPercentage < 100 && networkBlockHeight !== 0 && (
           <p className={`${textColor} glow`}>
-            <i className="fas fa-sync fa-spin" /> &nbsp;Don&apos;t panic! Your
-            wallet is still syncing...
+            <i className="fas fa-sync fa-spin" /> &nbsp; {i18n.sync_dont_panic}
           </p>
         )}
         {syncPercentage === 100 && networkBlockHeight !== 0 && (
           <p className={`${textColor} glow-green`}>
-            <i className="fas fa-check-circle" /> &nbsp;Your wallet is fully
-            synced.
+            <i className="fas fa-check-circle" /> &nbsp; {i18n.sync_fully}
           </p>
         )}
         {networkBlockHeight === 0 && (
           <p className={`${textColor} glow-red`}>
-            <i className="fas fa-times" /> &nbsp;The connected node appears to
-            be offline.
+            <i className="fas fa-times" /> &nbsp; {i18n.sync_node_offline}
           </p>
         )}
       </div>

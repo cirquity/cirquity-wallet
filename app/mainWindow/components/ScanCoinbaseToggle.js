@@ -4,7 +4,7 @@
 // Please see the included LICENSE file for more information.
 import React, { Component } from 'react';
 import { ipcRenderer } from 'electron';
-import { config, configManager } from '../index';
+import { config, configManager, i18n } from '../index';
 import { uiType } from '../utils/utils';
 
 type State = {
@@ -63,7 +63,7 @@ export default class ScanCoinbaseToggle extends Component<Props, State> {
                 <i className="fas fa-times" />
               </span>
             </a>
-            &nbsp;&nbsp; Scan Coinbase Transactions: <b>Off</b>
+            &nbsp;&nbsp; {i18n.scan_codebase} <strong>{i18n.off}</strong>
           </span>
         )}
         {scanCoinbaseTransactions === true && (
@@ -79,7 +79,7 @@ export default class ScanCoinbaseToggle extends Component<Props, State> {
                 <i className="fa fa-check" />
               </span>
             </a>
-            &nbsp;&nbsp; Scan Coinbase Transactions: <b>On</b> &nbsp;&nbsp;
+            &nbsp;&nbsp; {i18n.scan_codebase} <strong>{i18n.on}</strong>
           </span>
         )}
       </div>

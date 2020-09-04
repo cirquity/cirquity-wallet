@@ -7,7 +7,7 @@ import { ipcRenderer } from 'electron';
 import log from 'electron-log';
 import os from 'os';
 import ReactTooltip from 'react-tooltip';
-import { eventEmitter, loginCounter, config } from '../index';
+import {eventEmitter, loginCounter, config, i18n} from '../index';
 import NavBar from './NavBar';
 import BottomBar from './BottomBar';
 import Redirector from './Redirector';
@@ -30,7 +30,6 @@ type State = {
   masterSwitch: boolean,
   inAnimation: string,
   outAnimation: string,
-  masterSwitch: boolean,
   previousTab: string,
   pageAnimationIn: string
 };
@@ -229,7 +228,7 @@ export default class Settings extends Component<Props, State> {
                         onMouseDown={event => event.preventDefault()}
                         className={darkMode ? 'menu-link-dark' : ''}
                       >
-                        <p className={textColor}>Node</p>
+                        <p className={textColor}>{i18n.node}</p>
                       </a>
                     </li>
                     <li
@@ -245,7 +244,7 @@ export default class Settings extends Component<Props, State> {
                         onMouseDown={event => event.preventDefault()}
                         className={darkMode ? 'menu-link-dark' : ''}
                       >
-                        <p className={textColor}>Wallet</p>
+                        <p className={textColor}>{i18n.wallet}</p>
                       </a>
                     </li>
                     <li
@@ -261,7 +260,7 @@ export default class Settings extends Component<Props, State> {
                         onMouseDown={event => event.preventDefault()}
                         className={darkMode ? 'menu-link-dark' : ''}
                       >
-                        <p className={textColor}>Display</p>
+                        <p className={textColor}>{i18n.display}</p>
                       </a>
                     </li>
                     <li
@@ -277,7 +276,7 @@ export default class Settings extends Component<Props, State> {
                         onMouseDown={event => event.preventDefault()}
                         className={darkMode ? 'menu-link-dark' : ''}
                       >
-                        <p className={textColor}>Security</p>
+                        <p className={textColor}>{i18n.security}</p>
                       </a>
                     </li>
                     <li
@@ -293,7 +292,9 @@ export default class Settings extends Component<Props, State> {
                         onMouseDown={event => event.preventDefault()}
                         className={darkMode ? 'menu-link-dark' : ''}
                       >
-                        <p className={textColor}>{platform} Settings</p>
+                        <p className={textColor}>
+                          {i18n.formatString(i18n.settings, { platform })}
+                        </p>
                       </a>
                     </li>
                   </ul>
@@ -326,7 +327,7 @@ export default class Settings extends Component<Props, State> {
                       <span className="icon is-small">
                         <i className="fa fa-terminal" />
                       </span>
-                      &nbsp;&nbsp; Show Console
+                      &nbsp;&nbsp; {i18n.settings_show_console}
                     </button>
                   </div>
                 )}
@@ -350,7 +351,7 @@ export default class Settings extends Component<Props, State> {
                       <span className="icon is-small">
                         <i className="fa fa-shield-alt" />
                       </span>
-                      &nbsp;&nbsp; Change Wallet Password
+                      &nbsp;&nbsp; {i18n.settings_wallet_password}
                     </button>
                     <br />
                     <br />
@@ -361,7 +362,7 @@ export default class Settings extends Component<Props, State> {
                       <span className="icon is-small">
                         <i className="fas fa-key" />
                       </span>
-                      &nbsp;&nbsp; Backup Wallet Keys/Seed
+                      &nbsp;&nbsp; {i18n.settings_backup_wallet}
                     </button>
                   </div>
                 )}
@@ -409,7 +410,7 @@ export default class Settings extends Component<Props, State> {
                         <span className="icon is-small">
                           <i className="fa fa-shield-alt" />
                         </span>
-                        &nbsp;&nbsp; Change Wallet Password
+                        &nbsp;&nbsp; {i18n.settings_change_password}
                       </button>
                       <br />
                       <br />
@@ -420,7 +421,7 @@ export default class Settings extends Component<Props, State> {
                         <span className="icon is-small">
                           <i className="fas fa-key" />
                         </span>
-                        &nbsp;&nbsp; Backup Wallet Keys/Seed
+                        &nbsp;&nbsp; {i18n.settings_backup_wallet}
                       </button>
                     </div>
                   )}

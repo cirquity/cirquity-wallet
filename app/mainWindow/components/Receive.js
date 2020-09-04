@@ -10,7 +10,7 @@ import {
   createIntegratedAddress,
   validatePaymentID
 } from 'turtlecoin-wallet-backend';
-import { session, il8n, loginCounter, config } from '../index';
+import { session, i18n, loginCounter, config } from '../index';
 import NavBar from './NavBar';
 import BottomBar from './BottomBar';
 import Redirector from './Redirector';
@@ -157,7 +157,7 @@ export default class Receive extends Component<Props, State> {
                       className={`label ${textColor}`}
                       htmlFor="receiveaddress"
                     >
-                      {il8n.receiving_address}
+                      {i18n.receiving_address}
                       <textarea
                         className="textarea is-family-monospace is-large no-resize"
                         rows="6"
@@ -184,7 +184,7 @@ export default class Receive extends Component<Props, State> {
                         <span className="icon is-small">
                           <i className="fa fa-clipboard" />
                         </span>
-                        &nbsp;&nbsp;{il8n.copy_to_clipboard}
+                        &nbsp;&nbsp;{i18n.copy_to_clipboard}
                       </button>
                       <button
                         type="button"
@@ -194,7 +194,7 @@ export default class Receive extends Component<Props, State> {
                         <span className="icon is-small">
                           <i className="fas fa-user" />
                         </span>
-                        &nbsp;&nbsp;Create Integrated Address
+                        &nbsp;&nbsp;{i18n.receive_integrated}
                       </button>
                       <button
                         type="button"
@@ -204,7 +204,7 @@ export default class Receive extends Component<Props, State> {
                         <span className="icon is-small">
                           <i className="fa fa-undo" />
                         </span>
-                        &nbsp;&nbsp;Reset
+                        &nbsp;&nbsp;{i18n.reset}
                       </button>
                     </div>
                   </div>
@@ -214,7 +214,7 @@ export default class Receive extends Component<Props, State> {
                   <div className="slide-in-left">
                     <form onSubmit={this.handleIDSubmit}>
                       <p className={`help ${textColor}`}>
-                        Payment ID used for Generation:
+                        {i18n.receive_payment_id}
                       </p>
                       <div className="field has-addons is-expanded">
                         <div className="control is-expanded">
@@ -229,7 +229,7 @@ export default class Receive extends Component<Props, State> {
                             <span className="icon is-small">
                               <i className="fa fa-flask" />
                             </span>
-                            &nbsp;&nbsp;Change
+                            &nbsp;&nbsp;{i18n.receive_change}
                           </button>
                         </div>
                       </div>
@@ -240,7 +240,7 @@ export default class Receive extends Component<Props, State> {
                   <div className="slide-out-left">
                     <form onSubmit={this.handleIDSubmit}>
                       <p className={`help ${textColor}`}>
-                        Payment ID used for Generation:
+                        {i18n.receive_payment_id}
                       </p>
                       <div className="field has-addons is-expanded">
                         <div className="control is-expanded">
@@ -255,7 +255,7 @@ export default class Receive extends Component<Props, State> {
                             <span className="icon is-small">
                               <i className="fa fa-flask" />
                             </span>
-                            &nbsp;&nbsp;Generate
+                            &nbsp;&nbsp;{i18n.generate}
                           </button>
                         </div>
                       </div>
@@ -266,7 +266,7 @@ export default class Receive extends Component<Props, State> {
               <div className="column">
                 <div className="field">
                   <p className={`has-text-weight-bold ${textColor}`}>
-                    {il8n.qr_code}
+                    {i18n.qr_code}
                   </p>
                   <div className="box has-background-light">
                     <center>

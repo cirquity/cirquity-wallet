@@ -44,11 +44,15 @@ export const directories = [
   `${homedir}/.cirqwallet/logs`
 ];
 
-export const il8n = new LocalizedStrings({
+export const i18n = new LocalizedStrings({
   // eslint-disable-next-line global-require
-  en: require('./il8n/en.json'),
+  en: require('./i18n/en.json'),
   // eslint-disable-next-line global-require
-  fr: require('./il8n/fr.json')
+  fr: require('./i18n/fr.json'),
+  // eslint-disable-next-line global-require
+  it: require('./i18n/it.json'),
+  // eslint-disable-next-line global-require
+  zh: require('./i18n/zh.json')
 });
 
 export let config = iConfig;

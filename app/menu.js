@@ -9,9 +9,9 @@ import npmPackage from '../package.json';
 import { messageRelayer } from './main.dev';
 import Config from './Config';
 
-export const il8n = new LocalizedStrings({
+export const i18n = new LocalizedStrings({
   // eslint-disable-next-line global-require
-  en: require('./mainWindow/il8n/en-menu.json')
+  en: require('./mainWindow/i18n/en-menu.json')
 });
 
 const { version: currentVersion } = npmPackage;
@@ -54,26 +54,26 @@ export default class MenuBuilder {
       label: `${productName}`,
       submenu: [
         {
-          label: `${il8n.about} ${productName}`,
+          label: `${i18n.about} ${productName}`,
           click: () => {
             shell.openExternal(`${Config.repoLink}/#readme`);
           }
         },
         { type: 'separator' },
         {
-          label: `${il8n.hide} ${productName}`,
+          label: `${i18n.hide} ${productName}`,
           accelerator: 'Command+H',
           selector: 'hide:'
         },
         {
-          label: `${il8n.hide_others}`,
+          label: `${i18n.hide_others}`,
           accelerator: 'Command+Shift+H',
           selector: 'hideOtherApplications:'
         },
-        { label: il8n.show_all, selector: 'unhideAllApplications:' },
+        { label: i18n.show_all, selector: 'unhideAllApplications:' },
         { type: 'separator' },
         {
-          label: il8n.quit,
+          label: i18n.quit,
           accelerator: 'Command+Q',
           click: () => {
             app.quit();
@@ -82,7 +82,7 @@ export default class MenuBuilder {
       ]
     };
     const subMenuFile = {
-      label: il8n.file,
+      label: i18n.file,
       submenu: [
         {
           label: 'Open',
@@ -92,33 +92,33 @@ export default class MenuBuilder {
           }
         },
         {
-          label: il8n.new,
+          label: i18n.new,
           accelerator: 'Command+N',
           click: () => {
             this.handleNew();
           }
         },
         {
-          label: il8n.restore,
+          label: i18n.restore,
           click: () => {
             this.handleRestore();
           }
         },
         {
-          label: il8n.save,
+          label: i18n.save,
           accelerator: 'Command+S',
           click: () => {
             this.handleSave();
           }
         },
         {
-          label: il8n.save_copy,
+          label: i18n.save_copy,
           click: () => {
             this.handleSaveAs();
           }
         },
         {
-          label: il8n.close,
+          label: i18n.close,
           accelerator: 'Command+W',
           click: () => {
             this.mainWindow.close();
@@ -127,40 +127,40 @@ export default class MenuBuilder {
       ]
     };
     const subMenuEdit = {
-      label: il8n.edit,
+      label: i18n.edit,
       submenu: [
-        { label: il8n.undo, accelerator: 'Command+Z', selector: 'undo:' },
-        { label: il8n.redo, accelerator: 'Shift+Command+Z', selector: 'redo:' },
+        { label: i18n.undo, accelerator: 'Command+Z', selector: 'undo:' },
+        { label: i18n.redo, accelerator: 'Shift+Command+Z', selector: 'redo:' },
         { type: 'separator' },
-        { label: il8n.cut, accelerator: 'Command+X', selector: 'cut:' },
-        { label: il8n.copy, accelerator: 'Command+C', selector: 'copy:' },
-        { label: il8n.paste, accelerator: 'Command+V', selector: 'paste:' },
+        { label: i18n.cut, accelerator: 'Command+X', selector: 'cut:' },
+        { label: i18n.copy, accelerator: 'Command+C', selector: 'copy:' },
+        { label: i18n.paste, accelerator: 'Command+V', selector: 'paste:' },
         {
-          label: il8n.select_all,
+          label: i18n.select_all,
           accelerator: 'Command+A',
           selector: 'selectAll:'
         }
       ]
     };
     const subMenuViewDev = {
-      label: il8n.view,
+      label: i18n.view,
       submenu: [
         {
-          label: il8n.reload,
+          label: i18n.reload,
           accelerator: 'Command+R',
           click: () => {
             this.mainWindow.webContents.reload();
           }
         },
         {
-          label: il8n.toggle_fullscreen,
+          label: i18n.toggle_fullscreen,
           accelerator: 'Ctrl+Command+F',
           click: () => {
             this.mainWindow.setFullScreen(!this.mainWindow.isFullScreen());
           }
         },
         {
-          label: il8n.toggle_devtools,
+          label: i18n.toggle_devtools,
           accelerator: 'Alt+Command+I',
           click: () => {
             this.mainWindow.toggleDevTools();
@@ -169,7 +169,7 @@ export default class MenuBuilder {
       ]
     };
     const subMenuViewProd = {
-      label: il8n.view,
+      label: i18n.view,
       submenu: [
         {
           label: 'Toggle Full Screen',
@@ -181,22 +181,22 @@ export default class MenuBuilder {
       ]
     };
     const subMenuWallet = {
-      label: il8n.wallet,
+      label: i18n.wallet,
       submenu: [
         {
-          label: il8n.password,
+          label: i18n.password,
           click: () => {
             this.handlePasswordChange();
           }
         },
         {
-          label: il8n.backup,
+          label: i18n.backup,
           click: () => {
             this.handleBackup();
           }
         },
         {
-          label: il8n.lock,
+          label: i18n.lock,
           accelerator: 'Command+L',
           click: () => {
             this.handleLock();
@@ -205,27 +205,27 @@ export default class MenuBuilder {
       ]
     };
     const subMenuWindow = {
-      label: il8n.window,
+      label: i18n.window,
       submenu: [
         {
-          label: il8n.minimize,
+          label: i18n.minimize,
           accelerator: 'Command+M',
           selector: 'performMiniaturize:'
         },
         {
-          label: il8n.close,
+          label: i18n.close,
           accelerator: 'Command+W',
           selector: 'performClose:'
         },
         { type: 'separator' },
-        { label: il8n.bring_all_front, selector: 'arrangeInFront:' }
+        { label: i18n.bring_all_front, selector: 'arrangeInFront:' }
       ]
     };
     const subMenuTools = {
-      label: il8n.tools,
+      label: i18n.tools,
       submenu: [
         {
-          label: il8n.export_csv,
+          label: i18n.export_csv,
           click: () => {
             this.handleExportToCsv();
           }
@@ -233,25 +233,25 @@ export default class MenuBuilder {
       ]
     };
     const subMenuHelp = {
-      label: il8n.help,
+      label: i18n.help,
       submenu: [
         {
           label: `${currentVersion}`
         },
         {
-          label: il8n.support,
+          label: i18n.support,
           click() {
             shell.openExternal('https://chat.cirquity.com');
           }
         },
         {
-          label: il8n.report_bug,
+          label: i18n.report_bug,
           click() {
             shell.openExternal(`${Config.repoLink}/issues`);
           }
         },
         {
-          label: il8n.feature_request,
+          label: i18n.feature_request,
           click() {
             shell.openExternal(`${Config.repoLink}/issues`);
           }
@@ -331,43 +331,43 @@ export default class MenuBuilder {
   buildDefaultTemplate() {
     const templateDefault = [
       {
-        label: il8n.file,
+        label: i18n.file,
         submenu: [
           {
-            label: il8n.open,
+            label: i18n.open,
             accelerator: 'Ctrl+O',
             click: () => {
               this.handleOpen();
             }
           },
           {
-            label: il8n.new,
+            label: i18n.new,
             accelerator: 'Ctrl+N',
             click: () => {
               this.handleNew();
             }
           },
           {
-            label: il8n.restore,
+            label: i18n.restore,
             click: () => {
               this.handleRestore();
             }
           },
           {
-            label: il8n.save,
+            label: i18n.save,
             accelerator: 'Ctrl+S',
             click: () => {
               this.handleSave();
             }
           },
           {
-            label: il8n.save_copy,
+            label: i18n.save_copy,
             click: () => {
               this.handleSaveAs();
             }
           },
           {
-            label: il8n.close,
+            label: i18n.close,
             accelerator: 'Ctrl+W',
             click: () => {
               this.mainWindow.close();
@@ -376,22 +376,22 @@ export default class MenuBuilder {
         ]
       },
       {
-        label: il8n.wallet,
+        label: i18n.wallet,
         submenu: [
           {
-            label: il8n.password,
+            label: i18n.password,
             click: () => {
               this.handlePasswordChange();
             }
           },
           {
-            label: il8n.backup,
+            label: i18n.backup,
             click: () => {
               this.handleBackup();
             }
           },
           {
-            label: il8n.lock,
+            label: i18n.lock,
             accelerator: 'Ctrl+L',
             click: () => {
               this.handleLock();
@@ -400,19 +400,19 @@ export default class MenuBuilder {
         ]
       },
       {
-        label: il8n.view,
+        label: i18n.view,
         submenu:
           process.env.NODE_ENV === 'development'
             ? [
                 {
-                  label: il8n.reload,
+                  label: i18n.reload,
                   accelerator: 'Ctrl+R',
                   click: () => {
                     this.mainWindow.webContents.reload();
                   }
                 },
                 {
-                  label: il8n.toggle_fullscreen,
+                  label: i18n.toggle_fullscreen,
                   accelerator: 'F11',
                   click: () => {
                     this.mainWindow.setFullScreen(
@@ -421,7 +421,7 @@ export default class MenuBuilder {
                   }
                 },
                 {
-                  label: il8n.toggle_devtools,
+                  label: i18n.toggle_devtools,
                   accelerator: 'Alt+Ctrl+I',
                   click: () => {
                     this.mainWindow.toggleDevTools();
@@ -430,7 +430,7 @@ export default class MenuBuilder {
               ]
             : [
                 {
-                  label: il8n.toggle_fullscreen,
+                  label: i18n.toggle_fullscreen,
                   accelerator: 'F11',
                   click: () => {
                     this.mainWindow.setFullScreen(
@@ -441,10 +441,10 @@ export default class MenuBuilder {
               ]
       },
       {
-        label: il8n.tools,
+        label: i18n.tools,
         submenu: [
           {
-            label: il8n.export_csv,
+            label: i18n.export_csv,
             click: () => {
               this.handleExportToCsv();
             }
@@ -452,31 +452,31 @@ export default class MenuBuilder {
         ]
       },
       {
-        label: il8n.help,
+        label: i18n.help,
         submenu: [
           {
             label: `${currentVersion}`
           },
           {
-            label: il8n.support,
+            label: i18n.support,
             click: () => {
               shell.openExternal('https://chat.cirquity.com');
             }
           },
           {
-            label: il8n.about,
+            label: i18n.about,
             click: () => {
               shell.openExternal(`${Config.repoLink}#readme`);
             }
           },
           {
-            label: il8n.report_bug,
+            label: i18n.report_bug,
             click: () => {
               shell.openExternal(`${Config.repoLink}/issues`);
             }
           },
           {
-            label: il8n.feature_request,
+            label: i18n.feature_request,
             click: () => {
               shell.openExternal(`${Config.repoLink}/issues`);
             }

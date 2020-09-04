@@ -12,7 +12,7 @@ import NavBar from './NavBar';
 import BottomBar from './BottomBar';
 import Redirector from './Redirector';
 import { uiType } from '../utils/utils';
-import { backupToFile, eventEmitter, reInitWallet, config } from '../index';
+import { backupToFile, eventEmitter, reInitWallet, config, i18n } from '../index';
 import Config from '../../Config';
 
 type State = {
@@ -22,8 +22,7 @@ type State = {
   confirmPassword: string,
   confirmSeed: string,
   activePage: string,
-  showPassword: boolean,
-  darkMode: boolean
+  showPassword: boolean
 };
 
 type Props = {};
@@ -147,7 +146,9 @@ export default class NewWallet extends Component<Props, State> {
         const message = (
           <div>
             <center>
-              <p className="title has-text-danger">Seed Verification Error!</p>
+              <p className="title has-text-danger">
+                {i18n.new_wallet_send_verification_error}
+              </p>
             </center>
             <br />
             <p className={`subtitle ${textColor}`}>{err.customMessage}</p>
@@ -167,7 +168,7 @@ export default class NewWallet extends Component<Props, State> {
             defaultPath: remote.app.getPath('documents'),
             filters: [
               {
-                name: 'Cirquity Wallet File (v0)',
+                name: i18n.import_restore_wallet_version,
                 extensions: ['wallet']
               }
             ]
@@ -183,12 +184,13 @@ export default class NewWallet extends Component<Props, State> {
             const message = (
               <div>
                 <center>
-                  <p className="subtitle has-text-danger">Wallet Save Error!</p>
+                  <p className="subtitle has-text-danger">
+                    {i18n.new_wallet_save_error}
+                  </p>
                 </center>
                 <br />
                 <p className={`subtitle ${textColor}`}>
-                  The wallet was not saved successfully. Check your directory
-                  permissions and try again.
+                  {i18n.new_wallet_save_error_desc}
                 </p>
               </div>
             );
@@ -199,12 +201,13 @@ export default class NewWallet extends Component<Props, State> {
           const message = (
             <div>
               <center>
-                <p className="title has-text-danger">Wallet Creation Error!</p>
+                <p className="title has-text-danger">
+                  {i18n.new_wallet_creation_error}
+                </p>
               </center>
               <br />
               <p className={`subtitle ${textColor}`}>
-                The seed you input did not match the seed of the new wallet. Try
-                again.
+                {i18n.new_wallet_creation_error_desc}
               </p>
             </div>
           );
@@ -263,7 +266,7 @@ export default class NewWallet extends Component<Props, State> {
     const { backgroundColor, fillColor, elementBaseColor, textColor } = uiType(
       darkMode
     );
-    const copiedTip = 'Copied!';
+    const copiedTip = i18n.copied;
 
     return (
       <div>
@@ -287,7 +290,7 @@ export default class NewWallet extends Component<Props, State> {
                   )}
                 </div>
                 <div className="step-details">
-                  <p className="step-title">Generate</p>
+                  <p className="step-title">{i18n.generate}</p>
                 </div>
               </div>
               <div
@@ -306,7 +309,7 @@ export default class NewWallet extends Component<Props, State> {
                   )}
                 </div>
                 <div className="step-details">
-                  <p className="step-title">Secure</p>
+                  <p className="step-title">{i18n.secure}</p>
                 </div>
               </div>
               <div
@@ -325,7 +328,7 @@ export default class NewWallet extends Component<Props, State> {
                   )}
                 </div>
                 <div className="step-details">
-                  <p className="step-title">Backup</p>
+                  <p className="step-title">{i18n.backup}</p>
                 </div>
               </div>
               <div
@@ -335,7 +338,7 @@ export default class NewWallet extends Component<Props, State> {
               >
                 <div className="step-marker">4</div>
                 <div className="step-details">
-                  <p className="step-title">Verify</p>
+                  <p className="step-title">{i18n.verify}</p>
                 </div>
               </div>
             </div>
@@ -343,13 +346,12 @@ export default class NewWallet extends Component<Props, State> {
             {activePage === 'generate' && (
               <div>
                 <p className={`subtitle ${textColor}`}>
-                  Welcome to the wallet creation wizard. Each address is
-                  randomly generated.
+                  {i18n.new_wallet_creation_welcome}
                 </p>
                 <div className="columns">
                   <div className="column">
                     <p className={`${textColor} label`}>
-                      Your New Address:
+                      {i18n.new_wallet_new_address}
                       <textarea
                         className="textarea is-large no-resize is-family-monospace"
                         rows="4"
@@ -360,7 +362,7 @@ export default class NewWallet extends Component<Props, State> {
                   </div>
                   <div className="column is-one-fifth">
                     <span className={`label ${textColor}`}>
-                      Identicon:
+                      {i18n.identicon}
                       <center>
                         <div className="box">
                           <span
@@ -383,16 +385,18 @@ export default class NewWallet extends Component<Props, State> {
             {activePage === 'secure' && (
               <div>
                 <p className={`subtitle ${textColor}`}>
-                  Set a password for your wallet. Take care not to forget it.
+                  {i18n.new_wallet_create_password}
                 </p>
                 <div className="field">
                   <label className={`label ${textColor}`} htmlFor="scanheight">
-                    Enter a Password:
+                    {i18n.import_secure_password_enter}
                     <div className="control">
                       <input
                         className="input is-large"
                         type={showPassword ? 'input' : 'password'}
-                        placeholder="Enter a password"
+                        placeholder={
+                          i18n.import_secure_password_enter_placeholder
+                        }
                         value={password}
                         onChange={this.handlePasswordChange}
                         onKeyPress={event => {
@@ -406,10 +410,10 @@ export default class NewWallet extends Component<Props, State> {
                 </div>
                 <div className="field">
                   <label className={`label ${textColor}`} htmlFor="scanheight">
-                    Confirm Password:{' '}
+                    {i18n.import_secure_password_confirm}
                     {password !== confirmPassword ? (
                       <span className="has-text-danger">
-                        &nbsp;&nbsp;Passwords do not match!
+                        &nbsp;&nbsp;{i18n.import_secure_password_no_match}
                       </span>
                     ) : (
                       ''
@@ -418,7 +422,9 @@ export default class NewWallet extends Component<Props, State> {
                       <input
                         className="input is-large"
                         type={showPassword ? 'input' : 'password'}
-                        placeholder="Confirm password"
+                        placeholder={
+                          i18n.import_secure_password_confirm_placeholder
+                        }
                         value={confirmPassword}
                         onChange={this.handleConfirmPasswordChange}
                         onKeyPress={event => {
@@ -443,7 +449,8 @@ export default class NewWallet extends Component<Props, State> {
                         <i className="fas fa-times" />
                       </span>
                     </a>
-                    &nbsp;&nbsp; Show Password: <b>Off</b>
+                    &nbsp;&nbsp; {i18n.import_secure_password_show}{' '}
+                    <strong>{i18n.off}</strong>
                   </span>
                 )}
                 {showPassword === true && (
@@ -459,7 +466,8 @@ export default class NewWallet extends Component<Props, State> {
                         <i className="fa fa-check" />
                       </span>
                     </a>
-                    &nbsp;&nbsp; Show Password: <b>On</b> &nbsp;&nbsp;
+                    &nbsp;&nbsp; {i18n.import_secure_password_show}{' '}
+                    <strong>{i18n.on}</strong> &nbsp;&nbsp;
                   </span>
                 )}
               </div>
@@ -468,13 +476,13 @@ export default class NewWallet extends Component<Props, State> {
             {activePage === 'backup' && (
               <div>
                 <p className={`subtitle ${textColor}`}>
-                  Please back up the following mnemonic seed safely.{' '}
+                  {i18n.new_wallet_backup}
                   <span className="has-text-danger has-text-weight-bold ">
-                    If you lose it your funds will be lost forever.
+                    {i18n.new_wallet_backup_mnemonic}
                   </span>
                 </p>
                 <p className={`label ${textColor}`}>
-                  Mnemonic Seed:
+                  {i18n.mnemonic_seed}
                   <textarea
                     className="textarea no-resize is-large"
                     value={newWallet.getMnemonicSeed()[0]}
@@ -498,7 +506,7 @@ export default class NewWallet extends Component<Props, State> {
                   <span className="icon">
                     <i className="fa fa-clipboard" />
                   </span>
-                  &nbsp;&nbsp;Copy to Clipboard
+                  &nbsp;&nbsp;{i18n.copy_to_clipboard}
                 </button>
                 &nbsp;&nbsp;
                 <button
@@ -511,7 +519,7 @@ export default class NewWallet extends Component<Props, State> {
                   <span className="icon">
                     <i className="fas fa-save" />
                   </span>
-                  &nbsp;&nbsp;Save To File
+                  &nbsp;&nbsp;{i18n.save_to_file}
                 </button>
               </div>
             )}
@@ -519,10 +527,10 @@ export default class NewWallet extends Component<Props, State> {
             {activePage === 'verify' && (
               <div>
                 <p className={`subtitle ${textColor}`}>
-                  Enter your seed to confirm you&apos;ve backed it up.
+                  {i18n.new_wallet_verify}
                 </p>
                 <p className={`label ${textColor}`}>
-                  Confirm Seed:
+                  {i18n.new_wallet_confirm_seed}
                   <textarea
                     className="textarea no-resize is-large"
                     value={confirmSeed}
@@ -549,7 +557,7 @@ export default class NewWallet extends Component<Props, State> {
                   tabIndex={0}
                   onMouseDown={event => event.preventDefault()}
                 >
-                  Back
+                  {i18n.back}
                 </span>
                 &nbsp;&nbsp;
                 <span
@@ -560,7 +568,7 @@ export default class NewWallet extends Component<Props, State> {
                   tabIndex={0}
                   onMouseDown={event => event.preventDefault()}
                 >
-                  {activePage === 'verify' ? 'Save Wallet As' : 'Next'}
+                  {activePage === 'verify' ? i18n.import : i18n.next}
                 </span>
               </div>
             </center>

@@ -18,7 +18,7 @@ import {
 import {
   session,
   addressList,
-  il8n,
+  i18n,
   config,
   eventEmitter,
   loginCounter
@@ -307,7 +307,7 @@ export default class Search extends Component<Props, States> {
             {contactResults.length > 0 && (
               <div>
                 <p className={`subtitle ${textColor}`}>
-                  <b>Contacts:</b>
+                  <b>{i18n.search_contacts}</b>
                 </p>
               </div>
             )}
@@ -317,10 +317,10 @@ export default class Search extends Component<Props, States> {
               >
                 <thead>
                   <tr>
-                    <th className={textColor}>Icon</th>
-                    <th className={textColor}>Name</th>
-                    <th className={textColor}>Address</th>
-                    <th className={textColor}>Payment ID</th>
+                    <th className={textColor}>{i18n.table_label_icon}</th>
+                    <th className={textColor}>{i18n.table_label_name}</th>
+                    <th className={textColor}>{i18n.table_label_address}</th>
+                    <th className={textColor}>{i18n.table_label_payment_id}</th>
                     <th />
                   </tr>
                 </thead>
@@ -380,7 +380,7 @@ export default class Search extends Component<Props, States> {
             {transactionResults.length > 0 && (
               <div>
                 <p className={`subtitle ${textColor}`}>
-                  <b>Transactions:</b>
+                  <b>{i18n.search_transactions}</b>
                 </p>
               </div>
             )}
@@ -391,10 +391,10 @@ export default class Search extends Component<Props, States> {
                 <thead>
                   <tr>
                     <th />
-                    <th className={textColor}>{il8n.date}</th>
-                    <th className={textColor}>{il8n.hash}</th>
+                    <th className={textColor}>{i18n.date}</th>
+                    <th className={textColor}>{i18n.hash}</th>
                     <th className={`has-text-right ${textColor}`}>
-                      {il8n.amount}
+                      {i18n.amount}
                     </th>
                   </tr>
                 </thead>
@@ -428,7 +428,7 @@ export default class Search extends Component<Props, States> {
                           <td>
                             {timestamp === 0 && (
                               <p className="has-text-danger">
-                                {il8n.unconfirmed}
+                                {i18n.unconfirmed}
                               </p>
                             )}
                             {timestamp > 0 && (
@@ -492,7 +492,7 @@ export default class Search extends Component<Props, States> {
                           {amount === 0 && (
                             <td>
                               <p className="has-text-right has-text-warning">
-                                Fusion
+                                {i18n.fusion}
                               </p>
                             </td>
                           )}
@@ -506,21 +506,23 @@ export default class Search extends Component<Props, States> {
                                   <tr className="no-hover">
                                     <td>
                                       <p>
-                                        <b>Date & Time</b>
+                                        <b>{i18n.table_label_date_time}</b>
                                         <br />
-                                        <b>Confirmations</b>
+                                        <b>{i18n.table_label_confirmations}</b>
                                         <br />
-                                        <b>Block Height</b>
+                                        <b>{i18n.table_label_block_height}</b>
                                         <br />
-                                        <b>Unlock Time</b>
+                                        <b>{i18n.table_label_unlock_time}</b>
                                         <br />
-                                        <b>Transaction Hash</b>
+                                        <b>
+                                          {i18n.table_label_transaction_hash}
+                                        </b>
                                         <br />
-                                        <b>Payment ID</b>
+                                        <b>{i18n.table_label_payment_id}</b>
                                         <br />
-                                        <b>Fee</b>
+                                        <b>{i18n.fee}</b>
                                         <br />
-                                        <b>Amount</b>
+                                        <b>{i18n.amount}</b>
                                         <br />
                                       </p>
                                     </td>
@@ -554,7 +556,8 @@ export default class Search extends Component<Props, States> {
                                             : ''
                                         }
                                       >
-                                        {atomicToHuman(amount, true)} {Config.ticker}
+                                        {atomicToHuman(amount, true)}{' '}
+                                        {Config.ticker}
                                       </p>
                                       <br />
                                       <br />
@@ -563,7 +566,7 @@ export default class Search extends Component<Props, States> {
                                         value={hash}
                                         onClick={this.openInExplorer}
                                       >
-                                        View on Block Explorer
+                                        {i18n.home_view_explorer}
                                       </button>
                                     </td>
                                   </tr>
@@ -587,7 +590,7 @@ export default class Search extends Component<Props, States> {
                     <tr>
                       <th>
                         <p className={`${textColor} subtitle`}>
-                          Settings Results:
+                          {i18n.search_setting_results}
                         </p>
                       </th>
                     </tr>
@@ -622,7 +625,7 @@ export default class Search extends Component<Props, States> {
                 {resultsFound === 0 && (
                   <div className={`box elem-to-center ${fillColor}`}>
                     <p className="title has-text-danger has-text-centered">
-                      No results found!
+                      {i18n.search_no_results}
                     </p>{' '}
                     {query.length === 64 && (
                       <Fragment>
@@ -636,7 +639,7 @@ export default class Search extends Component<Props, States> {
                             tabIndex={0}
                             onMouseDown={event => event.preventDefault()}
                           >
-                            Seach on Block Explorer
+                            {i18n.search_on_explorer}
                           </span>
                         </center>
                       </Fragment>

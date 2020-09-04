@@ -3,7 +3,7 @@
 //
 // Please see the included LICENSE file for more information.
 import React, { Component } from 'react';
-import { config, eventEmitter, configManager } from '../index';
+import {config, eventEmitter, configManager, i18n} from '../index';
 import { uiType } from '../utils/utils';
 
 type Props = {
@@ -76,13 +76,10 @@ export default class TimeoutSelector extends Component<Props, State> {
       const message = (
         <div>
           <center>
-            <p className="title has-text-danger">Value Too High!</p>
+            <p className="title has-text-danger">{i18n.value_too_high}</p>
           </center>
           <br />
-          <p className={`subtitle ${textColor}`}>
-            Because of a JavaScript limitation, the highest you can set this to
-            is 35,791 minutes.
-          </p>
+          <p className={`subtitle ${textColor}`}>{i18n.js_limit}</p>
         </div>
       );
       eventEmitter.emit('openModal', message, 'OK', null, null);
@@ -99,7 +96,7 @@ export default class TimeoutSelector extends Component<Props, State> {
     return (
       <div>
         <p className={`has-text-weight-bold ${textColor}`}>
-          Autolock Time Interval (in minutes):
+          {i18n.autolock_interval}
         </p>
         <form onSubmit={this.updateTimeoutInConfig}>
           <div className="field has-addons">
@@ -117,7 +114,7 @@ export default class TimeoutSelector extends Component<Props, State> {
                 <span className="icon is-small">
                   <i className="fa fa-save" />
                 </span>
-                &nbsp;&nbsp; Change
+                &nbsp;&nbsp; {i18n.change_it}
               </button>
             </div>
           </div>
@@ -136,7 +133,7 @@ export default class TimeoutSelector extends Component<Props, State> {
                 <i className="fas fa-check" />
               </span>
             </a>
-            &nbsp;&nbsp; Inactivity Autolock: <b>On</b>
+            &nbsp;&nbsp; {i18n.timeout_autolock} <strong>{i18n.on}</strong>
           </span>
         )}
         {!timeoutEnabled && (
@@ -152,7 +149,7 @@ export default class TimeoutSelector extends Component<Props, State> {
                 <i className="fas fa-times" />
               </span>
             </a>
-            &nbsp;&nbsp; Inactivity Autolock: <b>Off</b>
+            &nbsp;&nbsp; {i18n.timeout_autolock} <strong>{i18n.off}</strong>
           </span>
         )}
       </div>

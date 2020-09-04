@@ -5,7 +5,7 @@
 import React, { Component } from 'react';
 import { ipcRenderer } from 'electron';
 import { uiType } from '../utils/utils';
-import { config, configManager } from '../index';
+import { config, configManager, i18n } from '../index';
 
 type State = {
   closeToTray: boolean
@@ -65,7 +65,8 @@ export default class CloseToTrayToggle extends Component<Props, State> {
                 <i className="fas fa-times" />
               </span>
             </a>
-            &nbsp;&nbsp; Close To Tray: <b>Off</b>
+            &nbsp;&nbsp; {i18n.close_to_tray}
+            <stromg>{i18n.off}</stromg>
           </span>
         )}
         {closeToTray === true && (
@@ -81,7 +82,8 @@ export default class CloseToTrayToggle extends Component<Props, State> {
                 <i className="fa fa-check" />
               </span>
             </a>
-            &nbsp;&nbsp; Close To Tray: <b>On</b>
+            &nbsp;&nbsp; {i18n.close_to_tray}
+            <stromg>{i18n.on}</stromg>
           </span>
         )}
       </div>

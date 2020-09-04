@@ -5,7 +5,7 @@
 import React, { Component } from 'react';
 import ReactLoading from 'react-loading';
 import ReactTooltip from 'react-tooltip';
-import { session, il8n, eventEmitter, config, configManager } from '../index';
+import { session, i18n, eventEmitter, config, configManager } from '../index';
 import { formatLikeCurrency, atomicToHuman } from '../utils/utils';
 import Config from '../../Config';
 
@@ -135,7 +135,7 @@ export default class Balance extends Component<Props, State> {
           fiatDecimals
         )}${fiatSymbol}`;
     } else {
-      balanceTooltip = 'No wallet open!';
+      balanceTooltip = i18n.balance_no_wallet_open;
     }
 
     return (
@@ -148,7 +148,7 @@ export default class Balance extends Component<Props, State> {
         onMouseDown={event => event.preventDefault()}
       >
         <div className="tags has-addons">
-          <span className={`tag ${color} ${size}`}>{il8n.balance_colon}</span>
+          <span className={`tag ${color} ${size}`}>{i18n.balance_colon}</span>
           {displayCurrency === Config.ticker && (
             <span
               className={

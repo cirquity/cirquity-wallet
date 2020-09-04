@@ -4,7 +4,7 @@
 // Please see the included LICENSE file for more information.
 import React, { Component } from 'react';
 import { ipcRenderer } from 'electron';
-import { eventEmitter, il8n, loginCounter, config } from '../index';
+import { eventEmitter, i18n, loginCounter, config } from '../index';
 import NavBar from './NavBar';
 import BottomBar from './BottomBar';
 import Redirector from './Redirector';
@@ -79,13 +79,13 @@ export default class ChangePassword extends Component<Props, State> {
           <div className={`maincontent ${backgroundColor} ${pageAnimationIn}`}>
             <div className="field">
               <label className={`label ${textColor}`} htmlFor="scanheight">
-                {il8n.change_passwd_enter_current_passwd}
+                {i18n.change_passwd_enter_current_passwd}
                 <div className="control">
                   <input
                     className="input is-large"
                     type="password"
                     placeholder={
-                      il8n.change_passwd_enter_current_passwd_input_placeholder
+                      i18n.change_passwd_enter_current_passwd_input_placeholder
                     }
                     value={oldPassword}
                     onChange={event => {
@@ -97,13 +97,13 @@ export default class ChangePassword extends Component<Props, State> {
             </div>
             <div className="field">
               <label className={`label ${textColor}`} htmlFor="scanheight">
-                {il8n.change_passwd_enter_new_passwd}
+                {i18n.change_passwd_enter_new_passwd}
                 <div className="control">
                   <input
                     className="input is-large"
                     type="password"
                     placeholder={
-                      il8n.change_passwd_enter_new_passwd_input_placeholder
+                      i18n.change_passwd_enter_new_passwd_input_placeholder
                     }
                     value={newPassword}
                     onChange={event => {
@@ -115,13 +115,13 @@ export default class ChangePassword extends Component<Props, State> {
             </div>
             <div className="field">
               <label className={`label ${textColor}`} htmlFor="scanheight">
-                {il8n.change_passwd_confirm_new_passwd}
+                {i18n.change_passwd_confirm_new_passwd}
                 <div className="control">
                   <input
                     className="input is-large"
                     type="password"
                     placeholder={
-                      il8n.change_passwd_confirm_new_passwd_input_placeholder
+                      i18n.change_passwd_confirm_new_passwd_input_placeholder
                     }
                     value={passwordConfirm}
                     onChange={event => {
@@ -137,7 +137,7 @@ export default class ChangePassword extends Component<Props, State> {
                 className="button is-success is-large"
                 onClick={this.changePassword}
               >
-                {il8n.change}
+                {i18n.change}
               </button>
             </div>
           </div>

@@ -6,7 +6,7 @@ import log from 'electron-log';
 import { remote, ipcRenderer } from 'electron';
 import React, { Component, Fragment } from 'react';
 import ReactTooltip from 'react-tooltip';
-import { session, eventEmitter, il8n, loginCounter, config } from '../index';
+import { session, eventEmitter, i18n, loginCounter, config } from '../index';
 import NavBar from './NavBar';
 import BottomBar from './BottomBar';
 import Redirector from './Redirector';
@@ -228,13 +228,13 @@ export default class Home extends Component<Props, State> {
               <thead>
                 <tr>
                   <th />
-                  <th className={textColor}>{il8n.date}</th>
-                  <th className={textColor}>{il8n.hash}</th>
+                  <th className={textColor}>{i18n.date}</th>
+                  <th className={textColor}>{i18n.hash}</th>
                   <th className={`has-text-right ${textColor}`}>
-                    {il8n.amount}
+                    {i18n.amount}
                   </th>
                   <th className={`has-text-right ${textColor}`}>
-                    {il8n.balance}
+                    {i18n.balance}
                   </th>
                 </tr>
               </thead>
@@ -259,7 +259,7 @@ export default class Home extends Component<Props, State> {
                         <td>
                           {tx[0] === 0 && (
                             <p className="has-text-danger">
-                              {il8n.unconfirmed}
+                              {i18n.unconfirmed}
                             </p>
                           )}
                           {tx[0] > 0 && <p>{convertTimestamp(tx[0])}</p>}
@@ -344,27 +344,27 @@ export default class Home extends Component<Props, State> {
                                 <tr className="no-hover">
                                   <td>
                                     <p>
-                                      <b>Date & Time</b>
+                                      <b>{i18n.table_label_date_time}</b>
                                       <br />
-                                      <b>Confirmations</b>
+                                      <b>{i18n.table_label_confirmations}</b>
                                       <br />
-                                      <b>Block Height</b>
+                                      <b>{i18n.table_label_block_height}</b>
                                       <br />
-                                      <b>Unlock Time</b>
+                                      <b>{i18n.table_label_unlock_time}</b>
                                       <br />
-                                      <b>Transaction Hash</b>
+                                      <b>{i18n.table_label_transaction_hash}</b>
                                       <br />
-                                      <b>Payment ID</b>
+                                      <b>{i18n.table_label_payment_id}</b>
                                       <br />
-                                      <b>Fee</b>
+                                      <b>{i18n.fee}</b>
                                       <br />
-                                      <b>Amount</b>
+                                      <b>{i18n.home_amount}</b>
                                       <br />
                                     </p>
                                   </td>
                                   <td>
                                     {tx[0] === 0
-                                      ? 'Still In Memory Pool'
+                                      ? i18n.home_in_memory
                                       : convertTimestamp(tx[0])}
                                     <br />
                                     {tx[0] !== 0
@@ -372,7 +372,7 @@ export default class Home extends Component<Props, State> {
                                       : 0}
                                     <br />
                                     {tx[0] === 0
-                                      ? 'Still In Memory Pool'
+                                      ? i18n.home_in_memory
                                       : formatLikeCurrency(tx[4])}
                                     <br />
                                     {tx[8]} <br />
@@ -388,7 +388,8 @@ export default class Home extends Component<Props, State> {
                                           : ''
                                       }
                                     >
-                                      {atomicToHuman(tx[2], true)} {Config.ticker}
+                                      {atomicToHuman(tx[2], true)}{' '}
+                                      {Config.ticker}
                                     </p>
                                     <br />
                                     <br />
@@ -397,7 +398,7 @@ export default class Home extends Component<Props, State> {
                                       value={transactionHash}
                                       onClick={this.openInExplorer}
                                     >
-                                      View on Block Explorer
+                                      {i18n.home_view_explorer}
                                     </button>
                                   </td>
                                 </tr>
@@ -416,12 +417,11 @@ export default class Home extends Component<Props, State> {
                 <div className={`box ${fillColor}`}>
                   <p className={`${textColor} title has-text-centered`}>
                     <i className="fas fa-robot" />
-                    &nbsp;&nbsp;Welcome to CirqWallet!
+                    &nbsp;&nbsp;{i18n.welcome_to_proton}
                   </p>
                   <br />
                   <p className={`${textColor} subtitle has-text-centered`}>
-                    You don&apos;t have any transactions yet. They will display
-                    here once you do.
+                    {i18n.home_no_transaction_yet}
                   </p>
                 </div>
               </div>
@@ -435,14 +435,14 @@ export default class Home extends Component<Props, State> {
                       className="button is-warning"
                       onClick={this.handleLoadMore}
                     >
-                      {il8n.load_more}
+                      {i18n.load_more}
                     </button>
                     <button
                       type="submit"
                       className="button is-danger"
                       onClick={this.resetDefault}
                     >
-                      {il8n.reset}
+                      {i18n.reset}
                     </button>
                   </div>
                 </div>

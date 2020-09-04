@@ -11,7 +11,7 @@ import NavBar from './NavBar';
 import BottomBar from './BottomBar';
 import Redirector from './Redirector';
 import { uiType } from '../utils/utils';
-import { eventEmitter, reInitWallet, config } from '../index';
+import { eventEmitter, reInitWallet, config, i18n } from '../index';
 import Config from '../../Config';
 
 type State = {
@@ -142,12 +142,11 @@ export default class Import extends Component<Props, State> {
         const message = (
           <div>
             <center>
-              <p className="title has-text-danger">Restore Error!</p>
+              <p className="title has-text-danger">{i18n.import_restore_error}</p>
             </center>
             <br />
             <p className={`subtitle ${textColor}`}>
-              The restore was not successful, is your seed correct? Please check
-              your details and try again.
+              {i18n.import_restore_error_description}
             </p>
           </div>
         );
@@ -167,7 +166,7 @@ export default class Import extends Component<Props, State> {
         defaultPath: remote.app.getPath('documents'),
         filters: [
           {
-            name: 'Cirquity Wallet File (v0)',
+            name: i18n.import_restore_wallet_version,
             extensions: ['wallet']
           }
         ]
@@ -183,12 +182,11 @@ export default class Import extends Component<Props, State> {
         const message = (
           <div>
             <center>
-              <p className="subtitle has-text-danger">Wallet Save Error!</p>
+              <p className="subtitle has-text-danger">{i18n.import_wallet_error}</p>
             </center>
             <br />
             <p className={`subtitle ${textColor}`}>
-              The wallet was not saved successfully. Check your directory
-              permissions and try again.
+              {i18n.import_wallet_error_description}
             </p>
           </div>
         );
@@ -256,7 +254,7 @@ export default class Import extends Component<Props, State> {
                   )}
                 </div>
                 <div className="step-details">
-                  <p className="step-title">Enter Seed</p>
+                  <p className="step-title">{i18n.import_enter_seed}</p>
                 </div>
               </div>
               <div
@@ -275,7 +273,7 @@ export default class Import extends Component<Props, State> {
                   )}
                 </div>
                 <div className="step-details">
-                  <p className="step-title">Verify</p>
+                  <p className="step-title">{i18n.verify}</p>
                 </div>
               </div>
               <div
@@ -294,23 +292,20 @@ export default class Import extends Component<Props, State> {
                   )}
                 </div>
                 <div className="step-details">
-                  <p className="step-title">Secure</p>
+                  <p className="step-title">{i18n.import_secure}</p>
                 </div>
               </div>
             </div>
 
             {activePage === 'enter_seed' && (
               <div>
-                <p className={`subtitle ${textColor}`}>
-                  Welcome to the wallet import wizard. Please enter your
-                  mnemonic seed.
-                </p>
+                <p className={`subtitle ${textColor}`}>{i18n.import_welcome}</p>
                 <div>
                   <label className={`label ${textColor}`} htmlFor="seed">
-                    Mnemonic Seed:
+                    {i18n.import_mnemonic_seed}
                     <textarea
                       className="textarea is-large"
-                      placeholder="Enter your mnemonic seed"
+                      placeholder={i18n.import_mnemonic_seed_placeholder}
                       rows={2}
                       onChange={event => {
                         this.setState({ mnemonicSeed: event.target.value });
@@ -324,7 +319,7 @@ export default class Import extends Component<Props, State> {
                     />
                   </label>
                   <label className={`label ${textColor}`} htmlFor="scanHeight">
-                    Scan Height: (Optional)
+                    {i18n.import_scan_height}
                     <textarea
                       className="input is-large"
                       placeholder="0"
@@ -340,7 +335,7 @@ export default class Import extends Component<Props, State> {
                       value={scanHeight}
                     />
                     <p className={`${textColor} help`}>
-                      Optional. Defaults to 0 if you&apos;re not sure.
+                      {i18n.import_scan_height_optional}
                     </p>
                   </label>
                 </div>
@@ -350,14 +345,13 @@ export default class Import extends Component<Props, State> {
             {activePage === 'verify' && (
               <div>
                 <p className={`subtitle ${textColor}`}>
-                  Confirm the address below is the one you expect.{' '}
+                  {i18n.import_verify_confirm}
                   <span className="has-text-danger has-text-weight-bold ">
-                    If it isn&apos;t correct, go back and double check your
-                    seed.
+                    {i18n.import_verify_confirm_correct}
                   </span>
                 </p>
                 <p className={`label ${textColor}`}>
-                  Imported Wallet Address:
+                  {i18n.import_verify_wallet}
                   <textarea
                     className="textarea no-resize is-large"
                     value={importedWallet.getPrimaryAddress()}
@@ -371,16 +365,18 @@ export default class Import extends Component<Props, State> {
             {activePage === 'secure' && (
               <div>
                 <p className={`subtitle ${textColor}`}>
-                  Set a password for your wallet. Take care not to forget it.
+                  {i18n.import_secure_password}
                 </p>
                 <div className="field">
                   <label className={`label ${textColor}`} htmlFor="scanheight">
-                    Enter a Password:
+                    {i18n.import_secure_password_enter}
                     <div className="control">
                       <input
                         className="input is-large"
                         type={showPassword ? 'input' : 'password'}
-                        placeholder="Enter a password"
+                        placeholder={
+                          i18n.import_secure_password_enter_placeholder
+                        }
                         value={password}
                         onChange={this.handlePasswordChange}
                         onKeyPress={event => {
@@ -394,10 +390,10 @@ export default class Import extends Component<Props, State> {
                 </div>
                 <div className="field">
                   <label className={`label ${textColor}`} htmlFor="scanheight">
-                    Confirm Password:{' '}
+                    {i18n.import_secure_password_confirm}
                     {password !== confirmPassword ? (
                       <span className="has-text-danger">
-                        &nbsp;&nbsp;Passwords do not match!
+                        &nbsp;&nbsp;{i18n.import_secure_password_no_match}
                       </span>
                     ) : (
                       ''
@@ -406,7 +402,9 @@ export default class Import extends Component<Props, State> {
                       <input
                         className="input is-large"
                         type={showPassword ? 'input' : 'password'}
-                        placeholder="Confirm password"
+                        placeholder={
+                          i18n.import_secure_password_confirm_placeholder
+                        }
                         value={confirmPassword}
                         onChange={this.handleConfirmPasswordChange}
                         onKeyPress={event => {
@@ -431,7 +429,8 @@ export default class Import extends Component<Props, State> {
                         <i className="fas fa-times" />
                       </span>
                     </a>
-                    &nbsp;&nbsp; Show Password: <b>Off</b>
+                    &nbsp;&nbsp; {i18n.import_secure_password_show}{' '}
+                    <strong>{i18n.off}</strong> &nbsp;&nbsp;
                   </span>
                 )}
                 {showPassword === true && (
@@ -447,7 +446,8 @@ export default class Import extends Component<Props, State> {
                         <i className="fa fa-check" />
                       </span>
                     </a>
-                    &nbsp;&nbsp; Show Password: <b>On</b> &nbsp;&nbsp;
+                    &nbsp;&nbsp; {i18n.import_secure_password_show}{' '}
+                    <strong>{i18n.on}</strong> &nbsp;&nbsp;
                   </span>
                 )}
               </div>
@@ -464,7 +464,7 @@ export default class Import extends Component<Props, State> {
                   tabIndex={0}
                   onMouseDown={event => event.preventDefault()}
                 >
-                  Back
+                  {i18n.back}
                 </span>
                 &nbsp;&nbsp;
                 <span
@@ -475,7 +475,7 @@ export default class Import extends Component<Props, State> {
                   tabIndex={0}
                   onMouseDown={event => event.preventDefault()}
                 >
-                  {activePage === 'secure' ? 'Save Wallet As' : 'Next'}
+                  {activePage === 'secure' ? i18n.import : i18n.next}
                 </span>
               </div>
             </center>

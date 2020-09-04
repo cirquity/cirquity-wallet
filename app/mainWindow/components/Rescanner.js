@@ -4,7 +4,7 @@
 // Please see the included LICENSE file for more information.
 import React, { Component } from 'react';
 import { ipcRenderer } from 'electron';
-import { il8n, eventEmitter } from '../index';
+import { i18n, eventEmitter } from '../index';
 import { uiType } from '../utils/utils';
 
 type Props = {
@@ -81,12 +81,11 @@ export default class Rescanner extends Component<Props, State> {
       const message = (
         <div>
           <center>
-            <p className="title has-text-danger">Error!</p>
+            <p className="title has-text-danger">{i18n.error}</p>
           </center>
           <br />
           <p className={`subtitle ${textColor}`}>
-            You haven&apos;t entered a valid block height. The input must be a
-            positive integer. Please try again.
+            {i18n.rescanner_description}
           </p>
           <p className={`subtitle ${textColor}`} />
         </div>
@@ -100,11 +99,11 @@ export default class Rescanner extends Component<Props, State> {
     const message = (
       <div>
         <center>
-          <p className="title has-text-danger">Rescan Warning!</p>
+          <p className="title has-text-danger">{i18n.rescanner_warning}</p>
         </center>
         <br />
         <p className={`subtitle ${textColor}`}>
-          {`You are about to rescan your wallet from block ${scanHeight}. Are you sure you want to do this? It could take a very long time.`}
+          {i18n.formatString(i18n.rescanner_warning_desc, { scanHeight })}
         </p>
       </div>
     );
@@ -119,14 +118,14 @@ export default class Rescanner extends Component<Props, State> {
     return (
       <div>
         <p className={`has-text-weight-bold ${textColor}`}>
-          {il8n.rescan_wallet}
+          {i18n.rescan_wallet}
         </p>
         <div className="field has-addons">
           <div className="control is-expanded">
             <input
               className="input"
               type="text"
-              placeholder="Enter a height to scan from..."
+              placeholder={i18n.rescanner_height_scan}
               value={scanHeight}
               onChange={event => {
                 this.setState({ scanHeight: event.target.value });
@@ -148,7 +147,7 @@ export default class Rescanner extends Component<Props, State> {
               <span className="icon is-small">
                 <i className="fa fa-undo" />
               </span>
-              &nbsp;&nbsp;{il8n.rescan}
+              &nbsp;&nbsp;{i18n.rescan}
             </button>
           </div>
         </div>

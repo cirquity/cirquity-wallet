@@ -5,7 +5,7 @@
 import React, { Component } from 'react';
 import ReactLoading from 'react-loading';
 import ReactTooltip from 'react-tooltip';
-import { session, eventEmitter } from '../index';
+import {session, eventEmitter, i18n} from '../index';
 
 type Props = {
   size: string,
@@ -72,7 +72,7 @@ export default class SyncStatus extends Component<Props, State> {
               darkMode ? `tag ${color} ${size}` : `tag ${color} ${size}`
             }
           >
-            Sync:
+            {i18n.sync_title}
           </span>
           {syncPercentage < 100 && networkBlockHeight !== 0 && (
             <span

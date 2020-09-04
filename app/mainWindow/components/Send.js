@@ -15,7 +15,7 @@ import ReactTooltip from 'react-tooltip';
 import {
   session,
   eventEmitter,
-  il8n,
+  i18n,
   config,
   loginCounter,
   addressList
@@ -515,13 +515,13 @@ export default class Send extends Component<Props, State> {
         <Creatable
           multi
           options={this.autoCompleteContacts}
-          placeholder="Enter a Cirquity address or a contact name to send funds to"
+          placeholder={i18n.send_placeholder}
           // eslint-disable-next-line no-unused-vars
           noOptionsMessage={inputValue => null}
           styles={customStyles}
           isClearable
           formatCreateLabel={value => {
-            return `Send to ${value}`;
+            return i18n.formatString(i18n.send_to, { value });
           }}
           value={selectedContact}
           onChange={this.handleAddressChange}
@@ -551,20 +551,19 @@ export default class Send extends Component<Props, State> {
                     className={`label ${textColor}`}
                     htmlFor="autoCompleteAddress"
                   >
-                    Send to
-                    {addressInput}
+                    {i18n.formatString(i18n.send_to, { addressInput })}
                   </label>
                 </div>
               </div>
 
               <div className="field" hidden>
                 <label className={`label ${textColor}`} htmlFor="address">
-                  {il8n.send_to_address}
+                  {i18n.send_to_address}
                   <div className="control">
                     <input
                       className="input is-large"
                       type="text"
-                      placeholder={il8n.send_to_address_input_placeholder}
+                      placeholder={i18n.send_to_address_input_placeholder}
                       value={sendToAddress}
                       onChange={this.handleSendToAddressChange}
                       id="address"
@@ -575,14 +574,14 @@ export default class Send extends Component<Props, State> {
               <div className="field">
                 <div className="control">
                   <label className={`label ${textColor}`} htmlFor="amount">
-                    {il8n.amount_to_send}
+                    {i18n.amount_to_send}
                     <input
                       className="input is-large"
                       type="text"
                       placeholder={
                         sendAll
-                          ? 'Sending entire wallet balance '
-                          : `How much to send (eg. ${
+                          ? i18n.send_entire_balance
+                          : `${i18n.send_how_much} (eg. ${
                               displayCurrency === 'fiat'
                                 ? exampleAmount
                                 : `100 ${Config.ticker}`
@@ -605,7 +604,7 @@ export default class Send extends Component<Props, State> {
                             });
                           }}
                         />{' '}
-                        Send all
+                        {i18n.send_all}
                       </p>
                     </label>
                   </label>
@@ -613,12 +612,12 @@ export default class Send extends Component<Props, State> {
               </div>
               <div className="field">
                 <label className={`label ${textColor}`} htmlFor="paymentid">
-                  {il8n.payment_id}
+                  {i18n.payment_id}
                   <div className="control">
                     <input
                       className="input is-large"
                       type="text"
-                      placeholder={il8n.payment_id_input_placeholder}
+                      placeholder={i18n.payment_id_input_placeholder}
                       value={paymentID}
                       onChange={this.handlePaymentIDChange}
                       id="paymentid"
@@ -631,7 +630,7 @@ export default class Send extends Component<Props, State> {
                       className={linkColor}
                       onMouseDown={event => event.preventDefault()}
                     >
-                      {il8n.generate_payment_id}
+                      {i18n.generate_payment_id}
                     </a>
                   </div>
                 </label>
@@ -642,7 +641,7 @@ export default class Send extends Component<Props, State> {
                     <span className="icon is-small">
                       <i className="fa fa-paper-plane" />
                     </span>
-                    &nbsp;&nbsp;{il8n.send}
+                    &nbsp;&nbsp;{i18n.send}
                   </button>
                 )}
                 {transactionInProgress && (
@@ -654,7 +653,7 @@ export default class Send extends Component<Props, State> {
                     <span className="icon is-small">
                       <i className="fa fa-paper-plane" />
                     </span>
-                    &nbsp;&nbsp;{il8n.send}
+                    &nbsp;&nbsp;{i18n.send}
                   </button>
                 )}
 
@@ -666,7 +665,7 @@ export default class Send extends Component<Props, State> {
                   <span className="icon is-small">
                     <i className="fa fa-undo" />
                   </span>
-                  &nbsp;&nbsp;{il8n.clear}
+                  &nbsp;&nbsp;{i18n.clear}
                 </button>
                 {isDev && (
                   <div>
@@ -682,7 +681,7 @@ export default class Send extends Component<Props, State> {
                       <span className="icon is-small">
                         <i className="fa fa-flask" />
                       </span>
-                      &nbsp;&nbsp;Test
+                      &nbsp;&nbsp;{i18n.test}
                     </a>
                   </div>
                 )}

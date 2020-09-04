@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
 import { remote, ipcRenderer } from 'electron';
-import { il8n, eventEmitter, session, configManager } from '../index';
+import { i18n, eventEmitter, session, configManager } from '../index';
 import { uiType } from '../utils/utils';
 import NodeFee from './NodeFee';
 import Config from '../../Config';
@@ -32,7 +32,7 @@ export default class NodeChanger extends Component<Props, State> {
     super(props);
     this.state = {
       connectionString:
-        `${session.getDaemonConnectionInfo().host ? (session.getDaemonConnectionInfo().host + ':' +session.getDaemonConnectionInfo().port) : 'Connecting, please wait...'}`,
+        `${session.getDaemonConnectionInfo().host ? (session.getDaemonConnectionInfo().host + ':' +session.getDaemonConnectionInfo().port) : i18n.node_changer_connecting_wait}`,
       nodeChangeInProgress: false,
       ssl: session.getDaemonConnectionInfo().ssl || false,
       selectedNode: Config.defaultDaemon,
@@ -69,7 +69,13 @@ export default class NodeChanger extends Component<Props, State> {
 
   resetConnectionString = () => {
     this.setState({
-      connectionString: `${session.getDaemonConnectionInfo().host ? (session.getDaemonConnectionInfo().host + ':' +session.getDaemonConnectionInfo().port) : 'Connecting, please wait...'}`,
+      connectionString: `${
+        session.getDaemonConnectionInfo().host
+          ? `${session.getDaemonConnectionInfo().host}:${
+              session.getDaemonConnectionInfo().port
+            }`
+          : 'Connecting, please wait...'
+      }`,
       nodeChangeInProgress: false,
       ssl: session.getDaemonConnectionInfo().ssl
     });
@@ -82,7 +88,7 @@ export default class NodeChanger extends Component<Props, State> {
   handleNodeListChange = (selectedOptions, data) => {
     this.setState({ selectedOptions });
     this.setState({ connectionString: selectedOptions.label });
-  }
+  };
 
   handleNodeChangeInProgress = () => {
     this.setState({
@@ -134,12 +140,10 @@ export default class NodeChanger extends Component<Props, State> {
       const modalMessage = (
         <div>
           <center>
-            <p className="title has-text-danger">Error!</p>
+            <p className="title has-text-danger">{i18n.error}</p>
           </center>
           <br />
-          <p className={`subtitle ${textColor}`}>
-            Port number must be an integer!
-          </p>
+          <p className={`subtitle ${textColor}`}>{i18n.node_changer_port}</p>
         </div>
       );
       eventEmitter.emit('openModal', modalMessage, 'OK', null, null);
@@ -164,7 +168,7 @@ export default class NodeChanger extends Component<Props, State> {
       <form onSubmit={this.changeNode}>
         <div>
           <p className={`has-text-weight-bold ${textColor}`}>
-            Remote Node (node:port)
+            {i18n.node_changer_remote_node}
           </p>
           <div className="field has-addons is-expanded">
             <div className="control is-expanded has-icons-left">
@@ -187,25 +191,25 @@ export default class NodeChanger extends Component<Props, State> {
               )}
               {ssl === true && (
                 <span className="icon is-small is-left">
-                  <i className="fas fa-lock"/>
+                  <i className="fas fa-lock" />
                 </span>
               )}
               {ssl === false && (
                 <span className="icon is-small is-left">
-                  <i className="fas fa-unlock"/>
+                  <i className="fas fa-unlock" />
                 </span>
               )}
               {nodeChangeInProgress === true && (
                 <input
                   className="input"
                   type="text"
-                  placeholder="connecting..."
+                  placeholder={i18n.node_changer_connecting}
                   onChange={this.handleNodeInputChange}
                 />
               )}
               {nodeChangeInProgress === true && (
                 <span className="icon is-small is-left">
-                  <i className="fas fa-sync fa-spin"/>
+                  <i className="fas fa-sync fa-spin" />
                 </span>
               )}
               <br />
@@ -215,9 +219,9 @@ export default class NodeChanger extends Component<Props, State> {
               <div className="control">
                 <button className="button is-success is-loading">
                   <span className="icon is-small">
-                    <i className="fa fa-network-wired"/>
+                    <i className="fa fa-network-wired" />
                   </span>
-                  &nbsp;&nbsp;{il8n.connect}
+                  &nbsp;&nbsp;{i18n.connect}
                 </button>
               </div>
             )}
@@ -227,14 +231,14 @@ export default class NodeChanger extends Component<Props, State> {
                   <span className="icon is-small">
                     <i className="fa fa-network-wired" />
                   </span>
-                  &nbsp;&nbsp;{il8n.connect}
+                  &nbsp;&nbsp;{i18n.connect}
                 </button>
               </div>
             )}
           </div>
         </div>
         <div>
-          <p className={`has-text-weight-bold ${textColor}`}>Select a node:</p>
+          <p className={`has-text-weight-bold ${textColor}`}>{i18n.node_changer_select_node}</p>
           <Select
             value={this.state.selectedOptions}
             onChange={this.handleNodeListChange}

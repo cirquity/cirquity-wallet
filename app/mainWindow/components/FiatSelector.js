@@ -5,7 +5,7 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
 import log from 'electron-log';
-import { config, session, configManager } from '../index';
+import { config, session, configManager, i18n } from '../index';
 import currencies from '../constants/currencies.json';
 import { uiType } from '../utils/utils';
 
@@ -94,7 +94,7 @@ export default class FiatSelector extends Component<Props, State> {
     return (
       <div>
         <p className={`has-text-weight-bold ${textColor}`}>
-          Alternate Display Currency:
+          {i18n.fiat_alternate}
         </p>
         <Select
           value={selectedFiat}

@@ -11,7 +11,7 @@ import NavBar from './NavBar';
 import BottomBar from './BottomBar';
 import Redirector from './Redirector';
 import { uiType } from '../utils/utils';
-import { eventEmitter, reInitWallet, config } from '../index';
+import { eventEmitter, reInitWallet, config, i18n } from '../index';
 import Config from '../../Config';
 
 type State = {
@@ -21,7 +21,6 @@ type State = {
   confirmSeed: string,
   activePage: string,
   showPassword: boolean,
-  darkMode: boolean,
   privateSpendKey: string,
   privateViewKey: string,
   importedWallet: any,
@@ -146,12 +145,11 @@ export default class ImportKey extends Component<Props, State> {
         const message = (
           <div>
             <center>
-              <p className="title has-text-danger">Restore Error!</p>
+              <p className="title has-text-danger">{i18n.import_key_error}</p>
             </center>
             <br />
             <p className={`subtitle ${textColor}`}>
-              The restore was not successful, is your seed correct? Please check
-              your details and try again.
+              {i18n.import_key_error_restore}
             </p>
           </div>
         );
@@ -171,7 +169,7 @@ export default class ImportKey extends Component<Props, State> {
         defaultPath: remote.app.getPath('documents'),
         filters: [
           {
-            name: 'Cirquity Wallet File (v0)',
+            name: i18n.import_restore_wallet_version,
             extensions: ['wallet']
           }
         ]
@@ -187,12 +185,11 @@ export default class ImportKey extends Component<Props, State> {
         const message = (
           <div>
             <center>
-              <p className="subtitle has-text-danger">Wallet Save Error!</p>
+              <p className="subtitle has-text-danger">{i18n.import_key_error_save}</p>
             </center>
             <br />
             <p className={`subtitle ${textColor}`}>
-              The wallet was not saved successfully. Check your directory
-              permissions and try again.
+              {i18n.import_key_error_save_desc}
             </p>
           </div>
         );
@@ -261,7 +258,7 @@ export default class ImportKey extends Component<Props, State> {
                   )}
                 </div>
                 <div className="step-details">
-                  <p className="step-title">Enter Seed</p>
+                  <p className="step-title">{i18n.enter_seed}</p>
                 </div>
               </div>
               <div
@@ -280,7 +277,7 @@ export default class ImportKey extends Component<Props, State> {
                   )}
                 </div>
                 <div className="step-details">
-                  <p className="step-title">Verify</p>
+                  <p className="step-title">{i18n.verify}</p>
                 </div>
               </div>
               <div
@@ -299,7 +296,7 @@ export default class ImportKey extends Component<Props, State> {
                   )}
                 </div>
                 <div className="step-details">
-                  <p className="step-title">Secure</p>
+                  <p className="step-title">{i18n.secure}</p>
                 </div>
               </div>
             </div>
@@ -307,15 +304,16 @@ export default class ImportKey extends Component<Props, State> {
             {activePage === 'enter_seed' && (
               <div>
                 <p className={`subtitle ${textColor}`}>
-                  Welcome to the wallet import wizard. Please enter your wallet
-                  keys.
+                  {i18n.import_key_enter_seed}
                 </p>
                 <div>
                   <label className={`label ${textColor}`} htmlFor="spendKey">
-                    Private Spend Key:
+                    {i18n.import_key_enter_seed_private}
                     <textarea
                       className="input is-large"
-                      placeholder="Enter your private spend key"
+                      placeholder={
+                        i18n.import_key_enter_seed_private_placeholder
+                      }
                       onChange={event => {
                         this.setState({ privateSpendKey: event.target.value });
                       }}
@@ -328,10 +326,12 @@ export default class ImportKey extends Component<Props, State> {
                     />
                   </label>
                   <label className={`label ${textColor}`} htmlFor="viewKey">
-                    Private View Key:
+                    {i18n.import_key_enter_seed_private_view}
                     <textarea
                       className="input is-large"
-                      placeholder="Enter your private view key"
+                      placeholder={
+                        i18n.import_key_enter_seed_private_view_placeholder
+                      }
                       onChange={event => {
                         this.setState({ privateViewKey: event.target.value });
                       }}
@@ -344,7 +344,7 @@ export default class ImportKey extends Component<Props, State> {
                     />
                   </label>
                   <label className={`label ${textColor}`} htmlFor="scanHeight">
-                    Scan Height: (Optional)
+                    {i18n.scan_height}
                     <textarea
                       className="input is-large"
                       placeholder="0"
@@ -359,7 +359,7 @@ export default class ImportKey extends Component<Props, State> {
                       }}
                     />
                     <p className={`${textColor} help`}>
-                      Optional. Defaults to 0 if you&apos;re not sure.
+                      {i18n.scan_height_tip}
                     </p>
                   </label>
                 </div>
@@ -369,14 +369,13 @@ export default class ImportKey extends Component<Props, State> {
             {activePage === 'verify' && (
               <div>
                 <p className={`subtitle ${textColor}`}>
-                  Confirm the address below is the one you expect.{' '}
+                  {i18n.import_key_verify}
                   <span className="has-text-danger has-text-weight-bold ">
-                    If it isn&apos;t correct, go back and double check your
-                    keys.
+                    {i18n.import_key_verify_correct}
                   </span>
                 </p>
                 <p className={`label ${textColor}`}>
-                  Imported Wallet Address:
+                  {i18n.import_key_imported}
                   <textarea
                     className="textarea no-resize is-large"
                     value={importedWallet.getPrimaryAddress()}
@@ -390,16 +389,18 @@ export default class ImportKey extends Component<Props, State> {
             {activePage === 'secure' && (
               <div>
                 <p className={`subtitle ${textColor}`}>
-                  Set a password for your wallet. Take care not to forget it.
+                  {i18n.import_key_secure}
                 </p>
                 <div className="field">
                   <label className={`label ${textColor}`} htmlFor="scanheight">
-                    Enter a Password:
+                    {i18n.import_secure_password_enter}
                     <div className="control">
                       <input
                         className="input is-large"
                         type={showPassword ? 'input' : 'password'}
-                        placeholder="Enter a password"
+                        placeholder={
+                          i18n.import_secure_password_enter_placeholder
+                        }
                         value={password}
                         onChange={this.handlePasswordChange}
                         onKeyPress={event => {
@@ -413,10 +414,10 @@ export default class ImportKey extends Component<Props, State> {
                 </div>
                 <div className="field">
                   <label className={`label ${textColor}`} htmlFor="scanheight">
-                    Confirm Password:{' '}
+                    {i18n.import_secure_password_confirm}
                     {password !== confirmPassword ? (
                       <span className="has-text-danger">
-                        &nbsp;&nbsp;Passwords do not match!
+                        &nbsp;&nbsp;{i18n.import_secure_password_no_match}
                       </span>
                     ) : (
                       ''
@@ -425,7 +426,9 @@ export default class ImportKey extends Component<Props, State> {
                       <input
                         className="input is-large"
                         type={showPassword ? 'input' : 'password'}
-                        placeholder="Confirm password"
+                        placeholder={
+                          i18n.import_secure_password_confirm_placeholder
+                        }
                         value={confirmPassword}
                         onChange={this.handleConfirmPasswordChange}
                         onKeyPress={event => {
@@ -450,7 +453,7 @@ export default class ImportKey extends Component<Props, State> {
                         <i className="fas fa-times" />
                       </span>
                     </a>
-                    &nbsp;&nbsp; Show Password: <b>Off</b>
+                    &nbsp;&nbsp; {i18n.import_secure_password_show} <strong>{i18n.off}</strong>
                   </span>
                 )}
                 {showPassword === true && (
@@ -466,7 +469,7 @@ export default class ImportKey extends Component<Props, State> {
                         <i className="fa fa-check" />
                       </span>
                     </a>
-                    &nbsp;&nbsp; Show Password: <b>On</b> &nbsp;&nbsp;
+                    &nbsp;&nbsp; {i18n.import_secure_password_show} <strong>{i18n.on}</strong> &nbsp;&nbsp;
                   </span>
                 )}
               </div>
@@ -494,7 +497,7 @@ export default class ImportKey extends Component<Props, State> {
                   tabIndex={0}
                   onMouseDown={event => event.preventDefault()}
                 >
-                  {activePage === 'secure' ? 'Save Wallet As' : 'Next'}
+                  {activePage === 'secure' ? i18n.import : i18n.next}
                 </span>
               </div>
             </center>

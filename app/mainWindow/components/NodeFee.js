@@ -3,7 +3,7 @@
 //
 // Please see the included LICENSE file for more information.
 import React, { Component } from 'react';
-import { session, eventEmitter, il8n } from '../index';
+import { session, eventEmitter, i18n } from '../index';
 import { atomicToHuman } from '../utils/utils';
 import Config from '../../Config';
 
@@ -52,7 +52,7 @@ export default class NodeFee extends Component<Props, State> {
       return (
         <div className="control statusicons">
           <div className="tags has-addons">
-            <span className={`tag ${color} ${size}`}>{il8n.node_fee}</span>
+            <span className={`tag ${color} ${size}`}>{i18n.node_fee}</span>
             <span className={`tag is-danger ${size}`}>
               {atomicToHuman(nodeFee, true)} {Config.ticker}
             </span>

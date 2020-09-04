@@ -5,7 +5,7 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
 import { ipcRenderer } from 'electron';
-import { config, configManager } from '../index';
+import { config, configManager, i18n } from '../index';
 import { uiType, search } from '../utils/utils';
 
 const logLevels = [
@@ -83,9 +83,7 @@ export default class LogLevelSelector extends Component<Props, State> {
 
     return (
       <div>
-        <p className={`has-text-weight-bold ${textColor}`}>
-          WalletBackend Log Level:
-        </p>
+        <p className={`has-text-weight-bold ${textColor}`}>{i18n.log_level}</p>
         <Select
           value={selectedLogLevel}
           onChange={this.handleLogLevelChange}

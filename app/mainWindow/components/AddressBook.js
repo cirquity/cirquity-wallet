@@ -14,7 +14,7 @@ import NavBar from './NavBar';
 import BottomBar from './BottomBar';
 import Redirector from './Redirector';
 import { uiType } from '../utils/utils';
-import { addressList, directories, loginCounter, config } from '../index';
+import { addressList, directories, i18n, loginCounter, config } from '../index';
 import routes from '../constants/routes';
 import Config from '../../Config';
 
@@ -229,9 +229,15 @@ class AddressBook extends Component<Props, State> {
                 <thead>
                   <tr>
                     <th className={textColor} />
-                    <th className={textColor}>Enter Name:</th>
-                    <th className={textColor}>Enter Address:</th>
-                    <th className={textColor}>Enter Payment ID (optional):</th>
+                    <th className={textColor}>
+                      {i18n.address_book_enter_name}
+                    </th>
+                    <th className={textColor}>
+                      {i18n.address_book_enter_address}
+                    </th>
+                    <th className={textColor}>
+                      {i18n.address_book_enter_payment_id}
+                    </th>
                     <th />
                   </tr>
                 </thead>
@@ -308,10 +314,10 @@ class AddressBook extends Component<Props, State> {
             >
               <thead>
                 <tr>
-                  <th className={textColor}>Icon</th>
-                  <th className={textColor}>Name</th>
-                  <th className={textColor}>Address</th>
-                  <th className={textColor}>Payment ID</th>
+                  <th className={textColor}>{i18n.table_label_icon}</th>
+                  <th className={textColor}>{i18n.table_label_name}</th>
+                  <th className={textColor}>{i18n.table_label_address}</th>
+                  <th className={textColor}>{i18n.table_label_payment_id}</th>
                   <th className="has-text-centered">
                     <a
                       className={textColor}
@@ -396,13 +402,12 @@ class AddressBook extends Component<Props, State> {
               <div className="elem-to-center">
                 <div className={`box ${fillColor}`}>
                   <p className={`${textColor} title has-text-centered`}>
-                    <i className="fas fa-robot" />
-                    &nbsp;&nbsp;Welcome to your Address Book!
+                    <i className="fas fa-robot" /> &nbsp;&nbsp;
+                    {i18n.address_book_welcome}
                   </p>
                   <br />
                   <p className={`${textColor} subtitle has-text-centered`}>
-                    You don&apos;t have any contacts saved yet. They will
-                    display here once you do.
+                    {i18n.address_book_no_contacts}
                   </p>
                 </div>
               </div>

@@ -4,7 +4,7 @@
 // Please see the included LICENSE file for more information.
 import React, { Component } from 'react';
 import log from 'electron-log';
-import { eventEmitter, il8n, config } from '../index';
+import { eventEmitter, i18n, config } from '../index';
 import Redirector from './Redirector';
 import Modal from './Modal';
 import { uiType } from '../utils/utils';
@@ -50,13 +50,13 @@ export default class FirstStartup extends Component<Props, State> {
     const message = (
       <div>
         <center>
-          <p className={`title ${textColor}`}>Select Import Type</p>
+          <p className={`title ${textColor}`}>{i18n.startup_select_type}</p>
         </center>
         <br />
         <p className={`subtitle ${textColor}`}>
-          <b>Send to:</b>
+          <b>{i18n.startup_send_to}</b>
           <br />
-          Would you like to import from seed or keys?
+          {i18n.startup_type_selection}
         </p>
       </div>
     );
@@ -85,27 +85,27 @@ export default class FirstStartup extends Component<Props, State> {
           <div className="mid-div">
             <div className={`box loginbox passwordchangebox ${fillColor}`}>
               <h1 className={`title has-text-centered ${redTitleColor}`}>
-                {il8n.welcome_to_proton}
+                {i18n.welcome_to_proton}
               </h1>
               <button
                 className={`button is-large is-fullwidth ${buttonColor}`}
                 onClick={this.openExisting}
               >
-                {il8n.open_existing_wallet}
+                {i18n.open_existing_wallet}
               </button>
               <br />
               <button
                 className={`button is-large is-fullwidth ${buttonColor}`}
                 onClick={this.createNew}
               >
-                {il8n.create_new_wallet}
+                {i18n.create_new_wallet}
               </button>
               <br />
               <button
                 className={`button is-large is-fullwidth ${buttonColor}`}
                 onClick={this.importFromKeysOrSeed}
               >
-                {il8n.import_keys_seed}
+                {i18n.import_keys_seed}
               </button>
             </div>
           </div>

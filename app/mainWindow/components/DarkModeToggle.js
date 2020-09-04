@@ -4,7 +4,7 @@
 // Please see the included LICENSE file for more information.
 import React, { Component } from 'react';
 import { uiType } from '../utils/utils';
-import { config, eventEmitter, configManager } from '../index';
+import { config, eventEmitter, configManager, i18n } from '../index';
 
 type State = {
   darkMode: boolean
@@ -62,7 +62,7 @@ export default class DarkModeToggle extends Component<Props, State> {
                 <i className="fas fa-moon" />
               </span>
             </a>
-            &nbsp;&nbsp; Dark Mode: <b>on</b>
+            &nbsp;&nbsp; {i18n.dark_mode} <strong>{i18n.on}</strong>
           </span>
         )}
         {darkMode === false && (
@@ -78,7 +78,7 @@ export default class DarkModeToggle extends Component<Props, State> {
                 <i className="fas fa-sun" />
               </span>
             </a>
-            &nbsp;&nbsp; Dark Mode: <b>off</b>
+            &nbsp;&nbsp; {i18n.dark_mode} <strong>{i18n.off}</strong>
           </span>
         )}
       </div>

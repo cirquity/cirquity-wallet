@@ -789,3 +789,27 @@ html {
   overflow: auto;
   user-select: none;
 }
+
+
+
+.has-background-dark .input,
+.has-background-dark .select select,
+.has-background-dark .textarea,
+.has-background-dark .css-1ivf11d-control,
+.has-background-dark .css-yawedl-control {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.11);
+  color: #fff;
+}
+
+.has-background-dark .css-ek5b1u-singleValue,
+.has-background-dark .css-b8ldur-Input {
+  color: #fff;
+}
+
+.has-background-dark .input::placeholder,
+.has-background-dark .select select::placeholder,
+.has-background-dark .textarea::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgba(255, 255, 255, 0.2);
+  opacity: 1; /* Firefox */
+}

@@ -5,7 +5,7 @@
 import React, { Component } from 'react';
 import { ipcRenderer } from 'electron';
 import ReactLoading from 'react-loading';
-import { session, eventEmitter, loginCounter, il8n, config } from '../index';
+import { session, eventEmitter, loginCounter, i18n, config } from '../index';
 import Redirector from './Redirector';
 import SyncReminder from './SyncReminder';
 import Modal from './Modal';
@@ -104,7 +104,7 @@ export default class Login extends Component<Props, State> {
                         className={`label ${textColor}`}
                         htmlFor="scanheight"
                       >
-                        {il8n.password}
+                        {i18n.password}
                         <div className="control">
                           <input
                             ref={input => input && input.focus()}
@@ -114,7 +114,7 @@ export default class Login extends Component<Props, State> {
                                 : 'input is-large'
                             }
                             type="password"
-                            placeholder={il8n.password_input_placeholder}
+                            placeholder={i18n.password_input_placeholder}
                           />
                         </div>
                       </label>
@@ -123,8 +123,8 @@ export default class Login extends Component<Props, State> {
                         htmlFor="scanheight"
                       >
                         {loginCounter.walletActive
-                          ? il8n.currently_logged_in
-                          : il8n.attempting_login_to}
+                          ? i18n.currently_logged_in
+                          : i18n.attempting_login_to}
                         <b>{walletFile}</b>
                       </label>
                     </div>
@@ -143,7 +143,7 @@ export default class Login extends Component<Props, State> {
                             type="submit"
                             className="button is-success is-large"
                           >
-                            {session.wallet ? il8n.unlock : il8n.login}
+                            {session.wallet ? i18n.unlock : i18n.login}
                           </button>
                         </div>
                       </div>
