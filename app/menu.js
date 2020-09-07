@@ -11,7 +11,8 @@ import Config from './Config';
 
 export const i18n = new LocalizedStrings({
   // eslint-disable-next-line global-require
-  en: require('./mainWindow/i18n/en-menu.json')
+  en: require('./mainWindow/i18n/en-menu.json'),
+  zh: require('./mainWindow/i18n/zh-menu.json')
 });
 
 const { version: currentVersion } = npmPackage;
