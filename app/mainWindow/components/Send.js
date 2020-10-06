@@ -521,7 +521,7 @@ export default class Send extends Component<Props, State> {
           styles={customStyles}
           isClearable
           formatCreateLabel={value => {
-            return i18n.formatString(i18n.send_to, { value });
+            return i18n.formatString(i18n.send_to_value, { value });
           }}
           value={selectedContact}
           onChange={this.handleAddressChange}
@@ -551,7 +551,8 @@ export default class Send extends Component<Props, State> {
                     className={`label ${textColor}`}
                     htmlFor="autoCompleteAddress"
                   >
-                    {i18n.formatString(i18n.send_to, { addressInput })}
+                    {i18n.send_to}
+                    {addressInput}
                   </label>
                 </div>
               </div>
