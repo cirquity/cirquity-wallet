@@ -399,13 +399,18 @@ ipcRenderer.on('handleSaveAs', () => {
       }
     ]
   };
-  const savePath = remote.dialog.showSaveDialog(null, options);
-  if (savePath === undefined) {
-    return;
-  }
 
-  const request = { notify: true, savePath };
-  ipcRenderer.send('fromFrontend', 'saveWalletAs', request);
+  return remote.dialog.showSaveDialog(null, options).then(result => {
+    const savePath = result.filePath;
+    if (savePath === undefined) {
+      return;
+    }
+
+    const request = { notify: true, savePath };
+    ipcRenderer.send('fromFrontend', 'saveWalletAs', request);
+
+    return true;
+  });
 });
 
 ipcRenderer.on('exportToCSV', () => {
@@ -422,11 +427,16 @@ ipcRenderer.on('exportToCSV', () => {
       }
     ]
   };
-  const savePath = remote.dialog.showSaveDialog(null, options);
-  if (savePath === undefined) {
-    return;
-  }
-  ipcRenderer.send('fromFrontend', 'exportToCSV', savePath);
+  return remote.dialog.showSaveDialog(null, options).then(result => {
+    const savePath = result.filePath;
+    if (savePath === undefined) {
+      return;
+    }
+
+    ipcRenderer.send('fromFrontend', 'exportToCSV', savePath);
+
+    return true;
+  });
 });
 
 ipcRenderer.on('handleOpen', handleOpen);
@@ -589,13 +599,16 @@ export function backupToFile() {
       }
     ]
   };
+  return remote.dialog.showSaveDialog(null, options).then(result => {
+    const savePath = result.filePath;
+    if (savePath === undefined) {
+      return;
+    }
 
-  const savePath = remote.dialog.showSaveDialog(null, options);
-  if (savePath === undefined) {
-    return;
-  }
+    ipcRenderer.send('fromFrontend', 'backupToFile', savePath);
 
-  ipcRenderer.send('fromFrontend', 'backupToFile', savePath);
+    return true;
+  });
 }
 
 function handleBackup() {

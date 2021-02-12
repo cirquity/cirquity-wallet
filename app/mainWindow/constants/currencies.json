@@ -91,6 +91,13 @@
     "decimals": "2"
   },
   {
+    "ticker": "php",
+    "coinName": "Philippine Peso",
+    "symbol": "₱",
+    "symbolLocation": "prefix",
+    "decimals": "2"
+  },
+  {
     "ticker": "rub",
     "coinName": "Russian Ruble",
     "symbol": "₽",

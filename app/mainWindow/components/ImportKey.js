@@ -174,18 +174,25 @@ export default class ImportKey extends Component<Props, State> {
           }
         ]
       };
-      const savePath = remote.dialog.showSaveDialog(null, options);
-      if (savePath === undefined) {
-        return;
-      }
-      const saved = importedWallet.saveWalletToFile(savePath, password);
-      if (saved) {
-        reInitWallet(savePath);
-      } else {
+
+      return remote.dialog.showSaveDialog(null, options).then(result => {
+        if (result.filePath === undefined) {
+          return;
+        }
+        const saved = importedWallet.saveWalletToFile(
+          result.filePath,
+          password
+        );
+        if (saved) {
+          reInitWallet(result.filePath);
+          return true;
+        }
         const message = (
           <div>
             <center>
-              <p className="subtitle has-text-danger">{i18n.import_key_error_save}</p>
+              <p className="subtitle has-text-danger">
+                {i18n.import_key_error_save}
+              </p>
             </center>
             <br />
             <p className={`subtitle ${textColor}`}>
@@ -194,8 +201,8 @@ export default class ImportKey extends Component<Props, State> {
           </div>
         );
         eventEmitter.emit('openModal', message, 'OK', null, null);
-      }
-      return;
+        return true;
+      });
     }
 
     currentPageNumber++;
@@ -453,7 +460,8 @@ export default class ImportKey extends Component<Props, State> {
                         <i className="fas fa-times" />
                       </span>
                     </a>
-                    &nbsp;&nbsp; {i18n.import_secure_password_show} <strong>{i18n.off}</strong>
+                    &nbsp;&nbsp; {i18n.import_secure_password_show}{' '}
+                    <strong>{i18n.off}</strong>
                   </span>
                 )}
                 {showPassword === true && (
@@ -469,7 +477,8 @@ export default class ImportKey extends Component<Props, State> {
                         <i className="fa fa-check" />
                       </span>
                     </a>
-                    &nbsp;&nbsp; {i18n.import_secure_password_show} <strong>{i18n.on}</strong> &nbsp;&nbsp;
+                    &nbsp;&nbsp; {i18n.import_secure_password_show}{' '}
+                    <strong>{i18n.on}</strong> &nbsp;&nbsp;
                   </span>
                 )}
               </div>
