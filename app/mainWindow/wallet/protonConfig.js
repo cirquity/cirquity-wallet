@@ -24,7 +24,7 @@ export default class ProtonConfig {
 
   modifyConfig(propertyName: string, value: any) {
     const programDirectory = this.getConfigPath();
-    log.debug(`Config update: ${propertyName} set to ${value.toString()}`);
+    log.debug(`Config update: ${propertyName} set to ${value}`);
     config[propertyName] = value;
     fs.writeFileSync(
       `${programDirectory}/config.json`,

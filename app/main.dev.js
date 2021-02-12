@@ -229,7 +229,8 @@ app.on('ready', async () => {
     webPreferences: {
       nativeWindowOpen: true,
       nodeIntegrationInWorker: true,
-      nodeIntegration: true
+      nodeIntegration: true,
+      enableRemoteModule: true
     }
   });
 
@@ -237,7 +238,8 @@ app.on('ready', async () => {
     show: false,
     frame: false,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      enableRemoteModule: true
     }
   });
 

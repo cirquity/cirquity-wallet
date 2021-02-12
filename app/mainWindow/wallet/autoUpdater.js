@@ -22,6 +22,7 @@ export default class AutoUpdater {
         url: `https://github.com/cirquity/cirquity-wallet/releases/latest/${operatingSystem}/${currentVersion}/${arch}`,
         json: true
       };
+      log.debug(options);
       request(options, (error, response, body) => {
         if (error) {
           log.debug('Error when contacting update server...');

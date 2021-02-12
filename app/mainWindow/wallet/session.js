@@ -150,7 +150,6 @@ export default class WalletSession {
     };
     try {
       const result = await request(requestOptions);
-      log.debug(result);
       if (result.nodes) {
         const activeNodes = [
           {

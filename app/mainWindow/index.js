@@ -640,11 +640,14 @@ function handleOpen() {
       }
     ]
   };
-  const getPaths = remote.dialog.showOpenDialog(null, options);
-  if (getPaths === undefined) {
-    return;
-  }
-  reInitWallet(getPaths[0]);
+
+  return remote.dialog.showOpenDialog(null, options).then(result => {
+    if (result.filePaths.length === 0) {
+      return;
+    }
+    reInitWallet(result.filePaths[0]);
+    return true;
+  });
 }
 
 export function reInitWallet(walletPath: string) {

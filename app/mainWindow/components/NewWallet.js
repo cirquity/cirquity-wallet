@@ -12,7 +12,13 @@ import NavBar from './NavBar';
 import BottomBar from './BottomBar';
 import Redirector from './Redirector';
 import { uiType } from '../utils/utils';
-import { backupToFile, eventEmitter, reInitWallet, config, i18n } from '../index';
+import {
+  backupToFile,
+  eventEmitter,
+  reInitWallet,
+  config,
+  i18n
+} from '../index';
 import Config from '../../Config';
 
 type State = {
@@ -173,14 +179,24 @@ export default class NewWallet extends Component<Props, State> {
               }
             ]
           };
+          /*
           const savePath = remote.dialog.showSaveDialog(null, options);
+
+          log.debug('savePath', savePath);
+
           if (savePath === undefined) {
             return;
           }
-          const saved = newWallet.saveWalletToFile(savePath, password);
-          if (saved) {
-            reInitWallet(savePath);
-          } else {
+          */
+          return remote.dialog.showSaveDialog(null, options).then(result => {
+            if (result.filePath === undefined) {
+              return;
+            }
+            const saved = newWallet.saveWalletToFile(result.filePath, password);
+            if (saved) {
+              reInitWallet(result.filePath);
+              return true;
+            }
             const message = (
               <div>
                 <center>
@@ -195,24 +211,25 @@ export default class NewWallet extends Component<Props, State> {
               </div>
             );
             eventEmitter.emit('openModal', message, 'OK', null, null);
-          }
-        } else {
-          log.error('Wallet creation error.');
-          const message = (
-            <div>
-              <center>
-                <p className="title has-text-danger">
-                  {i18n.new_wallet_creation_error}
-                </p>
-              </center>
-              <br />
-              <p className={`subtitle ${textColor}`}>
-                {i18n.new_wallet_creation_error_desc}
-              </p>
-            </div>
-          );
-          eventEmitter.emit('openModal', message, 'OK', null, null);
+            return true;
+          });
         }
+
+        log.error('Wallet creation error.');
+        const message = (
+          <div>
+            <center>
+              <p className="title has-text-danger">
+                {i18n.new_wallet_creation_error}
+              </p>
+            </center>
+            <br />
+            <p className={`subtitle ${textColor}`}>
+              {i18n.new_wallet_creation_error_desc}
+            </p>
+          </div>
+        );
+        eventEmitter.emit('openModal', message, 'OK', null, null);
       }
       return;
     }
