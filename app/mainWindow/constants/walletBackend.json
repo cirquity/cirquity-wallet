@@ -1,9 +1,9 @@
 {
-  "decimalPlaces": 2,
+  "decimalPlaces": 5,
   "addressPrefix": 3934293,
   "ticker": "CIRQ",
   "scanCoinbaseTransactions": false,
-  "customUserAgentString": "cirqwallet-v0.2.0",
+  "customUserAgentString": "cirqwallet-v0.2.6",
   "defaultMixin": 0
 }
 

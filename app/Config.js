@@ -27,7 +27,7 @@ const Config = new function() {
    * The amount of decimal places your coin has, e.g. TurtleCoin has two
    * decimals
    */
-  this.decimalPlaces = 2;
+  this.decimalPlaces = 5;
 
   /**
    * The address prefix your coin uses - you can find this in CryptoNoteConfig.h.
@@ -86,7 +86,7 @@ const Config = new function() {
   /**
    * The minimum fee allowed for transactions, in ATOMIC units
    */
-  this.minimumFee = 10;
+  this.minimumFee = 10000;
 
   /**
    * Fee per byte height
